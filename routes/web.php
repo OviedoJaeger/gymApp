@@ -18,6 +18,18 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/inicio', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/suscripciones', [App\Http\Controllers\HomeController::class, 'suscripciones'])->name('suscripciones');
+Route::get('/socios', [App\Http\Controllers\HomeController::class, 'socios'])->name('socios');
+Route::get('/visitas', [App\Http\Controllers\HomeController::class, 'visitas'])->name('visitas');
+Route::get('/crear-venta', [App\Http\Controllers\HomeController::class, 'crearVenta'])->name('crear-venta');
+Route::get('/reportes-ventas', [App\Http\Controllers\HomeController::class, 'reporteVentas'])->name('reporte-venta');
+Route::get('/inventario', [App\Http\Controllers\HomeController::class, 'inventario'])->name('inventario');
+Route::get('/configuracion', [App\Http\Controllers\HomeController::class, 'configuracion'])->name('configuracion');
+Route::get('/anuncios', [App\Http\Controllers\HomeController::class, 'anuncios'])->name('anuncios');
+Route::get('/reportes', [App\Http\Controllers\HomeController::class, 'reportesGral'])->name('reportes-gral');
+Route::get('/inventario', [App\Http\Controllers\HomeController::class, 'inventario'])->name('inventario');
+Route::get('/asistencias-socios', [App\Http\Controllers\HomeController::class, 'asistencias_socios'])->name('asistencias_socios');
+Route::get('/asistencias-visitas', [App\Http\Controllers\HomeController::class, 'asistencias_visitas'])->name('asistencias_Visitas');

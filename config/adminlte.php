@@ -253,7 +253,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'inicio',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -303,85 +303,78 @@ return [
 
         // Sidebar items:
         [
-            'type' => 'sidebar-menu-search',
-            'text' => 'Busqueda',
-        ],
-        [
             'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'Paquetes',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'text' => 'Inicio',
+            'url'  => '/inicio',
+            'icon' => 'fas fa-fw fa-solid fa-house-user',
         ],
-        ['header' => 'account_settings'],
         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
+            'text' => 'Suscripciones',
+            'url'  => '/suscripciones',
+            'icon' => 'fas fa-fw fa-solid fa-clipboard-check',
+        ],
+        [
+            'text' => 'Socios',
+            'url'  => '/socios',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'text'    => 'Visitas',
+            'url'  => '/visitas',
+            'icon'    => 'fas fa-fw fa-id-badge',
         ],
         [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+            'text'    => 'Asistencias Socios',
+            'url'  => '/asistencias-socios',
+            'icon'    => 'fas fa-fw fa-user-check',
+        ],
+        [
+            'text'    => 'Asistencias Visitas',
+            'url'  => '/asistencias-visitas',
+            'icon'    => 'fas fa-fw fa-user-check',
+        ],
+        [
+            'text' => 'Ventas',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-cart-plus',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Crear Venta',
+                    'url'  => '/crear-venta',
+                    'icon_color' => 'gray',
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
+                    'text'    => 'Reporte de Ventas',
+                    'url'     => '/reportes-ventas',
+                    'icon_color' => 'gray',
                 ],
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text'    => 'Inventario',
+                    'url'     => '/inventario',
+                    'icon_color' => 'gray',
                 ],
             ],
         ],
-        ['header' => 'labels'],
+        
+        ['header' => 'Administración'],
         [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
+            'text' => 'Configuracion',
+            'url'  => '/configuracion',
+            'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
+            'text'    => 'Anuncios',
+            'url'  => '/anuncios',
+            'icon'    => 'fas fa-fw fa-id-badge',
         ],
         [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
+            'text' => 'Reportes',
+            'url'  => '/reportes',
+            'icon' => 'fas fa-fw fa-chart-pie',
         ],
     ],
 

@@ -4,11 +4,11 @@ return [
 
     'full_name'                   => 'Full name',
     'email'                       => 'Email',
-    'password'                    => 'Password',
+    'password'                    => 'Contraseña',
     'retype_password'             => 'Retype password',
     'remember_me'                 => 'Remember Me',
     'register'                    => 'Register',
-    'register_a_new_membership'   => 'Register a new membership',
+    'register_a_new_membership'   => 'Registrar a un nuevo miembro',
     'i_forgot_my_password'        => 'I forgot my password',
     'i_already_have_a_membership' => 'I already have a membership',
     'sign_in'                     => 'Sign In',
