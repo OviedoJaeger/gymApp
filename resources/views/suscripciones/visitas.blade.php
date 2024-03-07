@@ -25,37 +25,38 @@
         </div>
         <div class="card-body">
 
-            <table id="t-suscripciones" class="table table-bordered table-striped">
+            <table id="t-socios" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                    <th width="5px">#</th>
+                    <th style="width: 10px">#</th>
                     <th>Nombre</th>
-                    <th>Apellido(s)</th>
+                    <th>Apellidos</th>
                     <th>Domicilio</th>
-                    <th>Teléfono</th>
-                    <th>Fecha de Registro</th>
+                    <th>Telefono</th>
+                    <th>Fecha Registro</th>
                     <th>Foto</th>
                     <th>Acciones</th>
-
                     </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                        Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
+                    <td></td>
+                    <td>Charly</td>
+                    <td>Quesadilla</td>
+                    <td>Avenida las Nieves 30</td>
+                    <td>5551281896</td>
+                    <td>2024-02-28 21:54:34/td>
+                    <td>pendejo.jpg</td>
                     <td>X</td>
                 </tr>
                 <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                        Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
+                    <td></td>
+                    <td>Zadad</td>
+                    <td>Oviedo</td>
+                    <td>Avenida las Nieves 31</td>
+                    <td>5551281896</td>
+                    <td>2024-02-28 21:54:34/td>
+                    <td>pendejo.jpg</td>
                     <td>X</td>
                 </tr>
                 </tbody>
@@ -121,7 +122,7 @@
             <!-- Fin del Modal -->
 
             <!-- Modal Registrar Visita-->
-        <div class="modal fade" id="modal-agregar-visita" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal fade" id="modal-registrar-visita" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <form>

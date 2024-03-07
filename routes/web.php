@@ -33,3 +33,5 @@ Route::get('/reportes', [App\Http\Controllers\HomeController::class, 'reportesGr
 Route::get('/inventario', [App\Http\Controllers\HomeController::class, 'inventario'])->name('inventario');
 Route::get('/asistencias-socios', [App\Http\Controllers\HomeController::class, 'asistencias_socios'])->name('asistencias_socios');
 Route::get('/asistencias-visitas', [App\Http\Controllers\HomeController::class, 'asistencias_visitas'])->name('asistencias_Visitas');
+Route::get('/ventas-paquetes', [App\Http\Controllers\HomeController::class, 'ventas_paquetes'])->name('ventas_paquetes');
+Route::get('/ventas-productos', [App\Http\Controllers\HomeController::class, 'ventas_productos'])->name('ventas_productos');

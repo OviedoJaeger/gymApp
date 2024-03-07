@@ -78,4 +78,12 @@ class HomeController extends Controller
     {
         return view('asistencia/asistencias_visitas');
     }
+    public function ventas_paquetes()
+    {
+        return view('ventas/ventas-paquetes');
+    }
+    public function ventas_productos()
+    {
+        return view('ventas/ventas-productos');
+    }
 }

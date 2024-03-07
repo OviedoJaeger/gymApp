@@ -27,7 +27,7 @@
         </div>
         <div class="card-body">
 
-            <table id="t-suscripciones" class="table table-bordered table-striped">
+            <table id="t-socios" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                     <th style="width: 10px">#</th>
@@ -35,33 +35,38 @@
                     <th>Apellidos</th>
                     <th>Correo</th>
                     <th>Telefono</th>
-                    <th>Fecha de inscripcion</th>
-                    <th>Ultimo paquete</th>
+                    <th>Fecha Inscripcion</th>
+                    <th>Paquete Actual</th>
                     <th>Activo</th>
                     <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                        Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
+                    <td></td>
+                    <td>Charly</td>
+                    <td>Quesadilla</td>
+                    <td>quesadilla69@gmail.com</td>
+                    <td>5551281896</td>
+                    <td>2024-02-28 21:54:34/td>
+                    <td>Mensualidad</td>
+                    <td>Activo</td>
                     <td>X</td>
                 </tr>
                 <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                        Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
+                    <td></td>
+                    <td>Zadad</td>
+                    <td>Oviedo</td>
+                    <td>quesadilla69@gmail.com</td>
+                    <td>5551281896</td>
+                    <td>2024-02-28 21:54:34/td>
+                    <td>Mensualidad</td>
+                    <td>Desactivado</td>
                     <td>X</td>
                 </tr>
                 </tbody>
             </table>
+        </div>
             
         </div>
 

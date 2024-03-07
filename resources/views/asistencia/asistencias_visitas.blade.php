@@ -11,42 +11,33 @@
 
     <div class="card">
         <div class="card-header">
-
-            <div>
-                <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#modal-agregar-suscripcion">
-                    Registrar Cliente Visita
-                </button>
-            </div>
+            <h3 class="card-title">Asistencias de Visitas</h3>
         </div>
         <div class="card-body">
 
-            <table id="t-suscripciones" class="table table-bordered table-striped">
+            <table id="t-socios" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
+                    <th style="width: 10px">#</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Fecha y Hora de Asistencia</th>
+                    <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                        Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
+                    <td></td>
+                    <td>Charly</td>
+                    <td>Quesadilla</td>
+                    <td>2024-02-28 21:54:34</td>
                     <td>X</td>
                 </tr>
                 <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                        Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
+                    <td></td>
+                    <td>Zadad</td>
+                    <td>Oviedo</td>
+                    <td>2024-02-28 21:54:34</td>
                     <td>X</td>
                 </tr>
                 </tbody>
@@ -61,5 +52,4 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
 @stop

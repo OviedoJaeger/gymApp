@@ -21,33 +21,31 @@
         </div>
         <div class="card-body">
 
-            <table id="t-suscripciones" class="table table-bordered table-striped display">
+            <table id="t-socios" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                     <th style="width: 10px">#</th>
                     <th>Paquete</th>
                     <th>Costo</th>
-                    <th>Duración</th>
+                    <th>Duracion</th>
                     <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                        Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
+                    <td></td>
+                    <td>Mensualidad</td>
+                    <td>$350.00</td>
+                    <td>30 Dias</td>
+                    <td></td>
                     <td>X</td>
                 </tr>
                 <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                        Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
+                    <td></td>
+                    <td>Mensualidad</td>
+                    <td>$350.00</td>
+                    <td>30 Dias</td>
+                    <td></td>
                     <td>X</td>
                 </tr>
                 </tbody>
@@ -72,20 +70,20 @@
                             <div class="form-group">
                                 <div class="input-group-prepend">
                                     <!--ENTRADA PARA SELECCIONAR EL PAQUETE-->
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-box"></i></span>
                                     <input type="text" class="form-control" id="" placeholder="Nombre del Paquete">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
                                     <input type="text" class="form-control" id="" placeholder="Costo del paquete">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    <input type="text" class="form-control" id="" placeholder="Plazo de tiempo del paquete">
+                                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                    <input type="text" class="form-control" id="" placeholder="Plazo de tiempo del paquete (dias)">
                                 </div>
                             </div>
                         </div>
@@ -108,5 +106,4 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
 @stop

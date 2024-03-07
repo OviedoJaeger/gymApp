@@ -323,19 +323,25 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text'    => 'Visitas',
-            'url'  => '/visitas',
-            'icon'    => 'fas fa-fw fa-id-badge',
-        ],
-        [
             'text'    => 'Asistencias Socios',
             'url'  => '/asistencias-socios',
             'icon'    => 'fas fa-fw fa-user-check',
         ],
         [
+            'type' => 'divider'
+        ],
+        [
+            'text'    => 'Visitas',
+            'url'  => '/visitas',
+            'icon'    => 'fas fa-fw fa-id-badge',
+        ],
+        [
             'text'    => 'Asistencias Visitas',
             'url'  => '/asistencias-visitas',
             'icon'    => 'fas fa-fw fa-user-check',
+        ],
+        [
+            'type' => 'divider'
         ],
         [
             'text' => 'Ventas',
@@ -348,7 +354,7 @@ return [
                     'icon_color' => 'gray',
                 ],
                 [
-                    'text'    => 'Reporte de Ventas',
+                    'text'    => 'Reporte de Ventas Productos',
                     'url'     => '/reportes-ventas',
                     'icon_color' => 'gray',
                 ],
@@ -359,12 +365,22 @@ return [
                 ],
             ],
         ],
+        [
+            'text'    => 'Ventas de Paquetes',
+            'url'  => '/ventas-paquetes',
+            'icon'    => 'fas fa-fw fa-money-bill-wave',
+        ],
+        [
+            'text'    => 'Ventas de Productos',
+            'url'  => '/ventas-productos',
+            'icon'    => 'fas fa-fw fa-money-bill-wave',
+        ],
         
         ['header' => 'Administración'],
         [
             'text' => 'Configuracion',
             'url'  => '/configuracion',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-wrench',
         ],
         [
             'text'    => 'Anuncios',
