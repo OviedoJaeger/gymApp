@@ -2,6 +2,8 @@
 
 @section('title', 'Gym')
 
+@section('plugins.Datatables', true)
+
 @section('content_header')
     <h1>HIRD Gym WebApp</h1>
 @stop
@@ -27,10 +29,10 @@
         </div>
         <div class="card-body">
 
-            <table id="t-socios" class="table table-bordered table-striped">
+            <table id="t-socios" class="table table-bordered table-striped tabla-datatables">
                 <thead>
                     <tr>
-                    <th style="width: 10px">#</th>
+                    <th style="width: 5px">#</th>
                     <th>Nombre</th>
                     <th>Apellidos</th>
                     <th>Correo</th>
@@ -198,6 +200,24 @@
                                 <input type="text" class="form-control" id="" placeholder="vendedor" value="">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="input-group-prepend">
+                                <p>Pago en 2 partes&nbsp;</p>
+                                <span>
+                                <input type="checkbox" class="form-control" id="check-adeudo" style="width: 20px; height: 20px;"" placeholder="Pago Realizado">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row" hidden>
+                            <div class="input-group-prepend col-xs-12 col-sm-6">
+                                <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                <input type="text" class="form-control" id="" placeholder="Pago Realizado">
+                            </div>
+                            <div class="input-group-prepend col-xs-12 col-sm-6">
+                                    <span class="input-group-text"><i class="fas fa-exclamation"></i></span>
+                                    <input type="text" class="form-control" id="" placeholder="Adeudo" readonly>
+                            </div>
+                        </div>                       
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary">Guardar</button>
@@ -218,5 +238,6 @@
     <script src="{{ asset('vendor/inputmask/inputmask.min.js') }}"></script>
     <script src="{{ asset('vendor/inputmask/jquery.inputmask.min.js') }}"></script>
     <script src="{{ asset('js/app.js')}}"></script>
+    <script src="{{asset('js/ini_datatable.js')}}"></script>
     
-    @stop
+@stop

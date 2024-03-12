@@ -2,6 +2,8 @@
 
 @section('title', 'Gym')
 
+@section('plugins.Datatables', true)
+
 @section('content_header')
     <h1>HIRD Gym WebApp</h1>
 @stop
@@ -12,7 +14,7 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-5">
                 <div class="card card-lightblue card-outline">
                     <div class="card-header">
                         <h5 class="m-0">Crear Ventas</h5>
@@ -94,7 +96,7 @@
 
             </div>
             <!-- /.col-md-6 -->
-        <div class="col-lg-6">
+        <div class="col-lg-7">
             <div class="card card-lightblue">
             <div class="card-header">
                 <h5 class="m-0">Productos</h5>
@@ -102,7 +104,7 @@
             <div class="card-body">
                 <h6 class="card-title">Productos</h6>
                 <div class="table-responsive">
-                    <table id="t-socios" class="table table-bordered table-striped">
+                    <table id="t-crearVenta" class="table table-bordered table-striped tabla-datatables">
                         <thead>
                             <tr>
                             <th style="width: 10px">#</th>
@@ -142,5 +144,9 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+
+    <script src="{{asset('js/ini_datatable.js')}}"></script>
 @stop

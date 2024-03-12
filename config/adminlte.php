@@ -211,7 +211,7 @@ return [
     */
 
     'sidebar_mini' => 'lg',
-    'sidebar_collapse' => false,
+    'sidebar_collapse' => true,
     'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
@@ -363,6 +363,11 @@ return [
                     'url'     => '/inventario',
                     'icon_color' => 'gray',
                 ],
+                [
+                    'text'    => 'Ventas de Productos',
+                    'url'  => '/ventas-productos',
+                    'icon'    => 'fas fa-fw fa-money-bill-wave',
+                ],
             ],
         ],
         [
@@ -371,9 +376,9 @@ return [
             'icon'    => 'fas fa-fw fa-money-bill-wave',
         ],
         [
-            'text'    => 'Ventas de Productos',
-            'url'  => '/ventas-productos',
-            'icon'    => 'fas fa-fw fa-money-bill-wave',
+            'text'    => 'Lockers',
+            'url'  => '/lockers',
+            'icon'    => 'fas fa-fw fa-door-closed',
         ],
         
         ['header' => 'Administración'],
@@ -430,7 +435,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -450,7 +455,7 @@ return [
             ],
         ],
         'Select2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

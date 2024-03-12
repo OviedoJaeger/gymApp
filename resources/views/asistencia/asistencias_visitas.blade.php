@@ -2,6 +2,8 @@
 
 @section('title', 'Gym')
 
+@section('plugins.Datatables', true)
+
 @section('content_header')
     <h1>HIRD Gym WebApp</h1>
 @stop
@@ -15,7 +17,7 @@
         </div>
         <div class="card-body">
 
-            <table id="t-socios" class="table table-bordered table-striped">
+            <table id="t-socios" class="table table-bordered table-striped tabla-datatables">
                 <thead>
                     <tr>
                     <th style="width: 10px">#</th>
@@ -52,4 +54,7 @@
 @stop
 
 @section('js')
+
+    <script src="{{asset('js/ini_datatable.js')}}"></script>
+
 @stop

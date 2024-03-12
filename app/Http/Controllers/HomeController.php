@@ -24,12 +24,7 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
-    }
-
-    public function suscripciones()
-    {
-        return view('suscripciones/suscripciones');
-    }
+    }  
 
     public function socios()
     {
@@ -85,5 +80,13 @@ class HomeController extends Controller
     public function ventas_productos()
     {
         return view('ventas/ventas-productos');
+    }
+    public function lockers()
+    {
+        return view('suscripciones/lockers');
+    }
+    public function ventana_cliente()
+    {
+        return view('administracion/ventana_cliente', ['hideNavbar' => true], ['hideSidebar' => true]);
     }
 }
