@@ -1,0 +1,14 @@
+#capture {
+    width: 100px; /* Cambia esto al ancho que desees */
+    height: 50px; /* Cambia esto a la altura que desees */
+    margin-bottom: 10px; /* Añade un margen en la parte inferior para separar el botón del input */
+}
+
+input[name="foto"] {
+    width: 50%; /* Hace que el input ocupe todo el ancho disponible */
+}
+
+video {
+    width: 50%; /* Hace que el video ocupe todo el ancho disponible */
+    height: auto; /* Mantiene la proporción del video al cambiar el ancho */
+}

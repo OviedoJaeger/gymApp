@@ -15,7 +15,7 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-body row">
-            <div class="col-7 ">
+            <div class="col-6 ">
                 <!--Columna Izquierda-->
                 <div class="">
                     <h2>Nombre del Usuario</h2>
@@ -34,7 +34,7 @@
                                     <input type="text" class="knob" value="30" data-width="120" data-height="120"
                                             data-fgColor="#f56954">
                 
-                                    <div class="knob-label">data-width="120"</div>
+                                    <div class="knob-label">Avance del Paquete</div>
                                 </div>
 
                         </div>
@@ -44,7 +44,7 @@
                 </div>
             </div>
             <!--Columna Derecha-->
-            <div class="col-5 d-flex justify-content-center flex-column text-center">
+            <div class="col-6 d-flex justify-content-center flex-column ">
                 <div>
                     <h1 class="mb-3">Titulo del Anuncio</h1>
                 </div>

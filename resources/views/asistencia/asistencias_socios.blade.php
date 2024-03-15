@@ -24,35 +24,29 @@
                     <th>Apellidos</th>
                     <th>Correo</th>
                     <th>Telefono</th>
-                    <th>Fecha Inscripcion</th>
+                    <th>Fecha Asistencia</th>
                     <th>Paquete Actual</th>
                     <th>Activo</th>
-                    <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td></td>
-                    <td>Charly</td>
-                    <td>Quesadilla</td>
-                    <td>quesadilla69@gmail.com</td>
-                    <td>5551281896</td>
-                    <td>2024-02-28 21:54:34/td>
-                    <td>Mensualidad</td>
-                    <td>Activo</td>
-                    <td>X</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Zadad</td>
-                    <td>Oviedo</td>
-                    <td>quesadilla69@gmail.com</td>
-                    <td>5551281896</td>
-                    <td>2024-02-28 21:54:34/td>
-                    <td>Mensualidad</td>
-                    <td>Desactivado</td>
-                    <td>X</td>
-                </tr>
+
+                    @php
+                    $counter = 1;
+                    @endphp
+
+                    @foreach ($asistencias as $asistencias)
+                        <tr>
+                            <td>{{$counter++}}</td>
+                            <td>{{$asistencias->cliente->nombre}}</td>
+                            <td>{{$asistencias->cliente->apellido}}</td>
+                            <td>{{$asistencias->cliente->correo}}</td>
+                            <td>{{$asistencias->cliente->telefono}}</td>
+                            <td>{{$asistencias->created_at}}</td>
+                            <td>{{$asistencias->cliente->paquete}}</td>
+                            <td>1</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
 

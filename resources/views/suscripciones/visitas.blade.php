@@ -41,26 +41,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td></td>
-                    <td>Charly</td>
-                    <td>Quesadilla</td>
-                    <td>Avenida las Nieves 30</td>
-                    <td>5551281896</td>
-                    <td>2024-02-28 21:54:34/td>
-                    <td>pendejo.jpg</td>
-                    <td>X</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Zadad</td>
-                    <td>Oviedo</td>
-                    <td>Avenida las Nieves 31</td>
-                    <td>5551281896</td>
-                    <td>2024-02-28 21:54:34/td>
-                    <td>pendejo.jpg</td>
-                    <td>X</td>
-                </tr>
+                
+                    @php
+                    $counter = 1;
+                    @endphp
+
+                    @foreach ($visitas as $visitas)
+                        <tr>
+                            <td>{{$counter++}}</td>
+                            <td>{{$visitas->nombre}}</td>
+                            <td>{{$visitas->apellido}}</td>
+                            <td>{{$visitas->correo}}</td>
+                            <td>{{$visitas->telefono}}</td>
+                            <td>{{$visitas->created_at}}</td>
+                            <td>{{$visitas->paquete}}</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm boton-venta" data-id="{{$visitas->id}}">Nueva visita</button>
+                                <button class="btn btn-warning btn-sm boton-editar" data-id="{{$visitas->id}}">Editar</button>
+                            </td>
+                        </tr>
+                    @endforeach
+
                 </tbody>
             </table>
         </div>
@@ -84,31 +85,31 @@
                                 <div class="input-group-prepend">
                                     <!--ENTRADA PARA SELECCIONAR EL PAQUETE-->
                                     <span class="input-group-text"><i class="fas fa-quote-left"></i></span>
-                                    <input type="text" class="form-control" id="" placeholder="Nombre">
+                                    <input type="text" name = "nombre" class="form-control"  placeholder="Nombre">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-quote-right"></i></span>
-                                    <input type="text" class="form-control" id="" placeholder="Apellido">
+                                    <input type="text" name="apellido" class="form-control"  placeholder="Apellido">
                                 </div>
                             </div>
                             <div class="form-group ">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                    <input type="text" class="form-control" id="" data-inputmask="'mask': '(99) 9999-9999'" placeholder="Telefono" data-mask>
+                                    <input type="text" name="telefono" class="form-control"  data-inputmask="'mask': '(99) 9999-9999'" placeholder="Telefono" data-mask>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-map"></i></span>
-                                    <input type="text" class="form-control" id="" placeholder="Domicilio">
+                                    <input type="text" name="domicilio" class="form-control"  placeholder="Domicilio">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group-prepend  panel">
                                     <span class="input-group-text"><i class="fas fa-image"></i></span>
-                                    <input type="file" class="" id="">
+                                    <input type="file" class="" name="foto">
                                     <img src="" class="mt-2 img-thumbnail previsualizar-foto" width="100 px">
                                 </div>
                             </div>
@@ -202,4 +203,31 @@
     <script src="{{ asset('vendor/inputmask/jquery.inputmask.min.js') }}"></script>
     <script src="{{ asset('js/app.js')}}"></script>
     <script src="{{asset('js/ini_datatable.js')}}"></script>
+    <script src="{{asset('js/visitas.js')}}"></script>
+
+    <script>
+        @if(session('success'))
+            Swal.fire({
+                title: '¡Éxito!',
+                text: "{{ session('success') }}",
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        @endif
+
+        @if ($errors->any())
+        let contentHtml = '<ul>';
+        @foreach ($errors->all() as $error)
+                contentHtml += '<li>{{ $error }}</li>';
+            @endforeach
+            contentHtml += '</ul>';
+
+            Swal.fire({
+                title: '¡Error!',
+                html: contentHtml,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            @endif
+    </script>
 @stop

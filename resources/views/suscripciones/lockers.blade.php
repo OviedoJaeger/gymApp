@@ -4,6 +4,8 @@
 
 @section('plugins.Datatables', true)
 
+@section('plugins.Sweetalert2', true)
+
 @section('content_header')
     <h1>HIRD Gym WebApp</h1>
 @stop
@@ -23,22 +25,36 @@
         </div>
         <div class="card-body">
 
-            <table id="t-socios" class="table table-bordered table-striped tabla-datatables">
+            <table id="tabla-lockers" class="table table-bordered table-striped tabla-datatables">
                 <thead>
                     <tr>
                     <th style="width: 10px">#</th>
-                    <th>Número de Locker</th>
+                    <th style="width: 120px">Número de Locker</th>
                     <th>Cliente</th>
                     <th>Fecha de Inicio</th>
+                    <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>5</td>
-                        <td>Charly Quesadilla</td>
-                        <td>12-12-2024</td>
-                    </tr>
+
+                        @php
+                        $counter = 1;
+                        @endphp
+
+                        @foreach ($lockers as $lockers)
+                            <tr>
+                                <td>{{$counter++}}</td>
+                                <td><strong>{{$lockers->numero}}</strong></td>
+                                <td>{{$lockers->cliente}}</td>
+                                <td>{{$lockers->created_at}}</td>
+                                <td>
+                                    <form id="form-eliminarPaquete" action="{{route('lockers.destroy', $lockers->id)}}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-sm eliminar-boton" type="submit">Eliminar</button>
+                                    </form>
+                            </tr>
+                        @endforeach
                 </tbody>
             </table>
         </div>
@@ -47,7 +63,8 @@
         <div class="modal fade" id="modal-agregar-locker" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form>
+                    <form action="{{route('lockers.store')}}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="modal-header">
                             <h5 class="modal-title" id="modalLabel">Agregar Registro de Locker</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -62,19 +79,13 @@
                                 <div class="input-group-prepend">
                                     <!--ENTRADA PARA SELECCIONAR EL PAQUETE-->
                                     <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
-                                    <input type="number" class="form-control" id="" placeholder="Numero de locker">
+                                    <input type="number"  name="numero" class="form-control" placeholder="Numero de locker" requires>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    <input type="text" class="form-control" id="" placeholder="Nombre del Cliente">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                                    <input type="date" class="form-control" id="" placeholder="Fecha Inicio">
+                                    <input type="text" name="cliente" class="form-control" placeholder="Nombre del Cliente" required>
                                 </div>
                             </div>
                         </div>
@@ -98,4 +109,31 @@
 
 @section('js')
     <script src="{{asset('js/ini_datatable.js')}}"></script>
+    <script src="{{asset('js/general.js')}}"></script>
+
+        <script>
+        @if(session('success'))
+            Swal.fire({
+                title: '¡Éxito!',
+                text: "{{ session('success') }}",
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        @endif
+
+        @if ($errors->any())
+        let contentHtml = '<ul>';
+        @foreach ($errors->all() as $error)
+                contentHtml += '<li>{{ $error }}</li>';
+            @endforeach
+            contentHtml += '</ul>';
+
+            Swal.fire({
+                title: '¡Error!',
+                html: contentHtml,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            @endif
+    </script>
 @stop

@@ -26,10 +26,6 @@ class HomeController extends Controller
         return view('home');
     }  
 
-    public function socios()
-    {
-        return view('suscripciones/socios');
-    }
 
     public function visitas()
     {
@@ -80,10 +76,6 @@ class HomeController extends Controller
     public function ventas_productos()
     {
         return view('ventas/ventas-productos');
-    }
-    public function lockers()
-    {
-        return view('suscripciones/lockers');
     }
     public function ventana_cliente()
     {

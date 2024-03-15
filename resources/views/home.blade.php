@@ -82,7 +82,7 @@
                                     <h2 class="text-danger">Espacio de aviso si es cumpleaños del cliente</h2>
                                     <div class="post row">
                                         <div class="user-block">
-                                        <img class="img-circle img-bordered-sm" src="{{asset('img-usuarios/imagen-prueba.png')}}" alt="user image" style="width: 250px; height: 250px;">
+                                        <img class="img-circle img-bordered-sm" src="{{asset('images/img-usuarios/imagen-prueba.png')}}" alt="user image" style="width: 250px; height: 250px;">
                                         <span class="username">
                                             Inicio del paquete: 12-12-2024
                                         </span>
@@ -120,7 +120,7 @@
                                 <ul class="products-list product-list-in-card pl-2 pr-2">
                                     <li class="item">
                                         <div class="product-img">
-                                            <img src="{{asset('img-usuarios/imagen-prueba.png')}}" alt="Product Image" class="img-size-80 mr-3" style="width: 100px; height: 100px;">
+                                            <img src="{{asset('images/img-usuarios/imagen-prueba.png')}}" alt="Product Image" class="img-size-80 mr-3" style="width: 100px; height: 100px;">
                                         </div>
                                         <div class="product-info">
                                             <a href="javascript:void(0)" class="product-title text-info">Charly Quesadilla</a>

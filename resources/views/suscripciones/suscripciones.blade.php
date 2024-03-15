@@ -35,18 +35,23 @@
                     </tr>
                 </thead>
                 <tbody>
+
+                    @php
+                    $counter = 1;
+                    @endphp
+
                     @foreach ($suscripciones as $suscripciones)
                         <tr>
-                            <td>{{$suscripciones->id_paquete}}</td>
+                            <td>{{$counter++}}</td>
                             <td>{{$suscripciones->paquete}}</td>
                             <td>{{$suscripciones->costo}}</td>
                             <td>{{$suscripciones->duracion}}</td>
                             <td>
                                 <button class="btn btn-warning btn-sm boton-editar" data-id="{{$suscripciones->id_paquete}}">Editar</button>
-                                <form action="{{route('suscripciones.destroy', $suscripciones->id_paquete)}}" method="POST" class="d-inline">
+                                <form id="form-eliminarPaquete" action="{{route('suscripciones.destroy', $suscripciones->id_paquete)}}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+                                    <button class="btn btn-danger btn-sm eliminar-boton" type="submit">Eliminar</button>
                                 </form>
                         </tr>
                     @endforeach
@@ -67,7 +72,7 @@
                             </button>
                         </div>
                         <!--=========================================
-                                        CUERPO DEL MODAL
+                                CUERPO DEL MODAL AGREGAR PAQUETE
                         ==========================================-->
                         <div class="modal-body">
                             <div class="form-group">
@@ -109,13 +114,13 @@
                         @csrf
                         @method('PUT')
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modalLabel">Agregar Suscripción</h5>
+                            <h5 class="modal-title" id="modalLabel">Editar Suscripción</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <!--=========================================
-                                        CUERPO DEL MODAL
+                                CUERPO DEL MODAL EDITAR PAQUETE
                         ==========================================-->
                         <div class="modal-body">
                             <input type="hidden" id="modal-id-input">
@@ -158,27 +163,9 @@
 
 @section('js')
     <script src="{{asset('js/ini_datatable.js')}}"></script>
-    <script src="{{asset('js/administracion/suscripciones.js')}}">
-        $(document).ready(function() {
-            $('.boton-editar').on('click', function() {
-                var id = $(this).data('id');
-                console.log(id);
-                $.ajax({
-                    url: 'suscripciones/' + id,
-                    method: 'GET',
-                    success: function(data) {
-                        // Inserta los datos en el modal
-                        $('#modal-id-input').val(data.id);
-                        $('input[name="paquete"]').val(data.paquete);
-                        $('input[name="costo"]').val(data.costo);
-                        $('input[name="duracion"]').val(data.duracion);
-                        
-                        // Muestra el modal
-                        $('#modal-editar-suscripcion').modal('show');
-                    }
-                });
-            });
-        });
+    <script src="{{asset('js/suscripciones/suscripciones.js')}}"></script>
+    <script src="{{asset('js/general.js')}}"></script>
+
     </script>
     <script>
         @if(session('success'))

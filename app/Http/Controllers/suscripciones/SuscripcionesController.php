@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\administracion;
+namespace App\Http\Controllers\suscripciones;
 
 use App\Http\Controllers\Controller;
 use App\Models\Suscripciones;
@@ -17,6 +17,11 @@ class SuscripcionesController extends Controller
     public function index(): View{
         $suscripciones = Suscripciones::latest()->get();
         return view('suscripciones.suscripciones', ['suscripciones' => $suscripciones]);
+    }
+
+    public function getPaquetes() {
+        $paquetes = Suscripciones::all();
+        return response()->json($paquetes);
     }
 
     /**

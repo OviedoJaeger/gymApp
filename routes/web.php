@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\asistencia\AsistenciasController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\administracion\SuscripcionesController;
+use App\Http\Controllers\suscripciones\SuscripcionesController;
+use App\Http\Controllers\suscripciones\ClientesController;
+use App\Http\Controllers\suscripciones\LockersController;
+use App\Http\Controllers\suscripciones\VisitasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,18 +27,20 @@ Auth::routes(['register' => false]);
 
 //Sección de rutas para "Suscripciones"
 Route::resource('suscripciones', SuscripcionesController::class);
+Route::get('getPaquetes', [SuscripcionesController::class, 'getPaquetes']);
 
 //Sección de rutas para "Socios"
+Route::resource('socios', ClientesController::class);
 
 
 //Sección de rutas para "Visitas"
-
+Route::resource('visitas', VisitasController::class);
 
 //Sección de rutas para "Ventas"
 
 
 //Sección de rutas para "lockers"
-
+Route::resource('lockers', LockersController::class);
 
 //Sección de rutas para "Anuncios"
 
@@ -47,9 +53,13 @@ Route::resource('suscripciones', SuscripcionesController::class);
 
 //Sección de rutas para "Inventario"
 
+//Seccion de rutas para "Asistencia Socios"
+Route::resource('asistencias-socios', AsistenciasController::class);
+
+
+
 Route::get('/inicio', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/socios', [App\Http\Controllers\HomeController::class, 'socios'])->name('socios');
-Route::get('/visitas', [App\Http\Controllers\HomeController::class, 'visitas'])->name('visitas');
+//Route::get('/visitas', [App\Http\Controllers\HomeController::class, 'visitas'])->name('visitas');
 Route::get('/crear-venta', [App\Http\Controllers\HomeController::class, 'crearVenta'])->name('crear-venta');
 Route::get('/reportes-ventas', [App\Http\Controllers\HomeController::class, 'reporteVentas'])->name('reporte-venta');
 Route::get('/inventario', [App\Http\Controllers\HomeController::class, 'inventario'])->name('inventario');
@@ -57,9 +67,6 @@ Route::get('/configuracion', [App\Http\Controllers\HomeController::class, 'confi
 Route::get('/anuncios', [App\Http\Controllers\HomeController::class, 'anuncios'])->name('anuncios');
 Route::get('/reportes', [App\Http\Controllers\HomeController::class, 'reportesGral'])->name('reportes-gral');
 Route::get('/inventario', [App\Http\Controllers\HomeController::class, 'inventario'])->name('inventario');
-Route::get('/asistencias-socios', [App\Http\Controllers\HomeController::class, 'asistencias_socios'])->name('asistencias_socios');
-Route::get('/asistencias-visitas', [App\Http\Controllers\HomeController::class, 'asistencias_visitas'])->name('asistencias_Visitas');
 Route::get('/ventas-paquetes', [App\Http\Controllers\HomeController::class, 'ventas_paquetes'])->name('ventas_paquetes');
 Route::get('/ventas-productos', [App\Http\Controllers\HomeController::class, 'ventas_productos'])->name('ventas_productos');
-Route::get('/lockers', [App\Http\Controllers\HomeController::class, 'lockers'])->name('lockers');
 Route::get('/ventana-cliente', [App\Http\Controllers\HomeController::class, 'ventana_cliente'])->name('ventana_cliente');

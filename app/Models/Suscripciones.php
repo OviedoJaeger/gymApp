@@ -10,6 +10,6 @@ class Suscripciones extends Model
     use HasFactory;
     protected $fillable = ['paquete', 'costo', 'duracion'];
     protected $table = 'paquetes'; //Nos sirve para poder gestionar una tabla con nombre diferente
-    public $timestamps = false; //Nos sirve para que no se guarden los campos de creación y actualización
+    //public $timestamps = false; //Nos sirve para que no se guarden los campos de creación y actualización
 
 }
