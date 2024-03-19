@@ -5,15 +5,18 @@ namespace App\Http\Controllers\asistencia;
 use App\Http\Controllers\Controller;
 use App\Models\AsistenciasVisitas;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use App\Models\ClientesVisitas;
 
 class AsistenciaVisitasController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index():View
     {
-        //
+        $asistenciasVisitas = AsistenciasVisitas::latest()->get();
+        return view('asistencia.asistencias_visitas', ['asistenciasVisitas' => $asistenciasVisitas]);
     }
 
     /**
@@ -35,11 +38,12 @@ class AsistenciaVisitasController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(AsistenciasVisitas $asistenciasVisitas)
+    public function show($id)
     {
-        //
+        $asistenciasVisitas = AsistenciasVisitas::where('id', $id)->first();
+        
+        return response()->json($asistenciasVisitas);
     }
-
     /**
      * Show the form for editing the specified resource.
      */

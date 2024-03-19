@@ -4,6 +4,8 @@
 
 @section('plugins.Datatables', true)
 
+@section('plugins.Sweetalert2', true)
+
 @section('content_header')
     <h1>HIRD Gym WebApp</h1>
 @stop
@@ -27,7 +29,7 @@
         </div>
         <div class="card-body">
 
-            <table id="t-socios" class="table table-bordered table-striped tabla-datatables">
+            <table id="t-visitas" class="table table-bordered table-striped tabla-datatables">
                 <thead>
                     <tr>
                     <th style="width: 10px">#</th>
@@ -46,24 +48,28 @@
                     $counter = 1;
                     @endphp
 
-                    @foreach ($visitas as $visitas)
+                    @foreach ($visitas as $visita)
                         <tr>
                             <td>{{$counter++}}</td>
-                            <td>{{$visitas->nombre}}</td>
-                            <td>{{$visitas->apellido}}</td>
-                            <td>{{$visitas->correo}}</td>
-                            <td>{{$visitas->telefono}}</td>
-                            <td>{{$visitas->created_at}}</td>
-                            <td>{{$visitas->paquete}}</td>
+                            <td>{{$visita->nombre}}</td>
+                            <td>{{$visita->apellido}}</td>
+                            <td>{{$visita->correo}}</td>
+                            <td>{{$visita->telefono}}</td>
+                            <td>{{$visita->created_at}}</td>
+                            <td>{{$visita->updated_at}}</td>
                             <td>
-                                <button class="btn btn-primary btn-sm boton-venta" data-id="{{$visitas->id}}">Nueva visita</button>
-                                <button class="btn btn-warning btn-sm boton-editar" data-id="{{$visitas->id}}">Editar</button>
+                                <button class="btn btn-primary btn-sm boton-nueva-visita" data-id="{{$visita->id}}">Nueva visita</button>
+                                <button class="btn btn-warning btn-sm boton-editar-visita" data-id="{{$visita->id}}">Editar</button>
                             </td>
                         </tr>
                     @endforeach
 
                 </tbody>
             </table>
+        </div>
+
+        <div class="card-footer d-flex justify-content-end">
+            {{$visitas ->links('paginador')}}
         </div>
 
         <!-- Modal Agregar Cliente Visita-->
@@ -191,6 +197,70 @@
             </div>
         </div>
             <!-- Fin del Modal -->
+
+            <!-- Modal de Editar visita-->
+        <div class="modal fade" id="modal-editar-visita" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form id="form-editarVisita" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalLabel">Editar Socio</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <!--=========================================
+                                CUERPO DEL MODAL EDITAR VISITA
+                        ==========================================-->
+                        <div class="modal-body">
+                            <input type="hidden" id="modal-id-input">
+                            <div class="form-group">
+                                <div class="input-group-prepend">
+                                    <!--ENTRADA PARA SELECCIONAR EL PAQUETE-->
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input type="text"  name="nombreEditar"  class="form-control"  placeholder="Nombre">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input type="text" name="apellidoEditar" class="form-control" placeholder="Apellido">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input type="text" name="direccionEditar" class="form-control" placeholder="Direccion">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="input-group-prepend col-xs-12 col-sm-6">
+                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                    <input type="text" name="telefonoEditar" class="form-control" data-inputmask="'mask': '(99) 9999-9999'" placeholder="Telefono" data-mask>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group-prepend  panel">
+                                    <span class="input-group-text"><i class="fas fa-image"></i></span>
+                                    <input type="file" name="fotoEditar" class="">
+                                    
+                                </div>
+                                <div class="input-group-prepend panel">
+                                    <img src="" class="mt-2 img-thumbnail" id="foto-previewEditar" width="250 px">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Fin del Modal -->
     </div>
 @stop
 
@@ -203,7 +273,7 @@
     <script src="{{ asset('vendor/inputmask/jquery.inputmask.min.js') }}"></script>
     <script src="{{ asset('js/app.js')}}"></script>
     <script src="{{asset('js/ini_datatable.js')}}"></script>
-    <script src="{{asset('js/visitas.js')}}"></script>
+    <script src="{{asset('js/suscripciones/visitas.js')}}"></script>
 
     <script>
         @if(session('success'))

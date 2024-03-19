@@ -16,7 +16,7 @@ class VisitasController extends Controller
      */
     public function index(): View
     {
-        $visitas = ClientesVisitas::latest()->get();
+        $visitas = ClientesVisitas::latest()->paginate(10);
         return view('suscripciones.visitas', ['visitas' => $visitas]);
     }
 
@@ -37,19 +37,34 @@ class VisitasController extends Controller
         $request->validate([
             'nombre' => 'required',
             'apellido' => 'required',
-            'domicilio' =>'required'
+            'domicilio' =>'required',
+            'telefono' => 'required'
         ]);
 
         clientesvisitas::create($request->all());
+
+        $visitas = new ClientesVisitas($request->all());
+
+        if($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $destinationPath = 'images/img-socios/';
+            $nombreArchivo = $request->nombre . '-' . $request->apellido . '-' . time() . '.' . $file->getClientOriginalExtension();
+            $uploadSuccess = $request->file('foto')->move($destinationPath, $nombreArchivo);
+
+            $visitas->foto = $destinationPath . $nombreArchivo;
+        }
+        
+        $visitas->save();
+
         return redirect()->route('Clientes_Visitas.index')->with('success', 'Socio creado correctamente');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(ClientesVisitas $clientes_visitas)
+    public function show($id)
     {
-        $clientes_visita = ClientesVisitas::find($clientes_visitas);
+        $clientes_visita = ClientesVisitas::where('id', $id)->first();
 
         return response()->json($clientes_visita);
     }
@@ -65,15 +80,34 @@ class VisitasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ClientesVisitas $clientes_Visitas): RedirectResponse
+    public function update(Request $request, $id): RedirectResponse
     {
         $request->validate([
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'domicilio' =>'required'
+            'nombreEditar' => 'required',
+            'apellidoEditar' => 'required',
+            'domicilioEditar' =>'required'
         ]);
         
-        $clientes_Visita = clientesvisitas::find($clientes_Visitas);
+        
+        $clientes_Visita = ClientesVisitas::where('id', $id)->first();
+
+        if($request->hasfile('fotoEditar')){
+
+            $file = $request->file('fotoEditar');
+            $destinationPath = 'images/img-visitas/';
+            $nombreArchivo = $request->nombreEditar . '-' . $request->apellidoEditar . '-' . time() . '.' . $file->getClientOriginalExtension();
+            $uploadSuccess = $request->file('fotoEditar')->move($destinationPath, $nombreArchivo);
+            $clientes_Visita->foto = $destinationPath . $nombreArchivo;
+
+        }
+
+        $clientes_Visita->nombre = $request->input('nombreEditar');
+        $clientes_Visita->apellido = $request->input('apellidoEditar');
+        $clientes_Visita->direccion = $request->input('direccionEditar');
+        $clientes_Visita->telefono = $request->input('telefonoEditar');
+        $clientes_Visita->foto = $request->input('fotoEditar');
+
+
         $clientes_Visita->update($request->except('_token', '_method'));
         return redirect()->route('Clientes_Visitas.index')->with('success', 'Socio Editado correctamente');
     }
@@ -81,7 +115,7 @@ class VisitasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy()
     {
     }
 }

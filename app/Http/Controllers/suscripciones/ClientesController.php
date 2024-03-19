@@ -8,16 +8,18 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Facades\DataTables;
+use App\DataTables\suscripciones\ClientesDataTable;
 
 class ClientesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index():View
+    public function index(ClientesDataTable $dataTable)
     {
-        $clientes = clientes::latest()->get();
-        return view('suscripciones.socios', ['clientes' => $clientes]);
+
+        return $dataTable->render('suscripciones.socios');
     }
 
     /**
@@ -42,18 +44,19 @@ class ClientesController extends Controller
             'sexo' =>'required',
             'fecha_cumple' =>'required'
         ]);
-        
-        $imageData = $request->input('hiddenImage');
-        $imageData = str_replace('data:image/png;base64,', '', $imageData);
-        $imageData = str_replace(' ', '+', $imageData);
-        $image = base64_decode($imageData);
-        $imageName = 'image_' . time() . '.png';
-        Storage::disk('public')->put('images/img-socios/' . $imageName, $image);
-        $imageUrl = Storage::url($imageName);
+        //Obtención de la imagen y guardado en carpeta PUBLIC, guardado de ruta en la BD
+        $cliente = new Clientes($request->all());
 
-        $request['foto'] = $imageUrl;
-    
-        Clientes::create($request->all());
+        if($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $destinationPath = 'images/img-socios/';
+            $nombreArchivo = $request->nombre . '-' . $request->apellido . '-' . time() . '.' . $file->getClientOriginalExtension();
+            $uploadSuccess = $request->file('foto')->move($destinationPath, $nombreArchivo);
+
+            $cliente->foto = $destinationPath . $nombreArchivo;
+        }
+        
+        $cliente->save();
         return redirect()->route('socios.index')->with('success', 'Socio creado correctamente');
     }
 
@@ -81,16 +84,35 @@ class ClientesController extends Controller
     public function update(Request $request,$id): RedirectResponse
     {
         $request->validate([
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'telefono_emergencia' =>'required',
-            'correo' =>'required',
-            'sexo' =>'required',
-            'fecha_cumple' =>'required'
+            'nombreEditar' => 'required', 
+            'apellidoEditar' => 'required',
+            'telefono_emergenciaEditar' =>'required',
+            'correoEditar' =>'required',
+            'fecha_cumpleEditar' =>'required'
         ]);
+
+        $cliente = clientes::where('id', $id)->first();
+
+        if($request->hasFile('fotoEditar')) {
+            $file = $request->file('fotoEditar');
+            $destinationPath = 'images/img-socios/';
+            $nombreArchivo = $request->nombreEditar . '-' . $request->apellidoEditar . '-' . time() . '.' . $file->getClientOriginalExtension();
+            $uploadSuccess = $request->file('fotoEditar')->move($destinationPath, $nombreArchivo);
+            $cliente->foto = $destinationPath . $nombreArchivo;
+        }
+
+        $cliente->nombre = $request->input('nombreEditar');
+        $cliente->apellido = $request->input('apellidoEditar');
+        $cliente->telefono = $request->input('telefonoEditar');
+        $cliente->telefono_emergencia = $request->input('telefono_emergenciaEditar');
+        $cliente->direccion = $request->input('direccionEditar');
+        $cliente->correo = $request->input('correoEditar');
+        $cliente->fecha_cumple = $request->input('fecha_cumpleEditar');
+        $cliente->edad = $request->input('edadEditar');
+        $cliente->observaciones = $request->input('observacionesEditar');
         
-        $cliente = clientes::where('id', $id);
-        $cliente->update($request->except('_token', '_method'));
+        
+        $cliente->save($request->except('_token', '_method'));
         return redirect()->route('socios.index')->with('success', 'Socio Editado correctamente');
     }
 

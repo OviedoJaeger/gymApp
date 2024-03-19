@@ -40,15 +40,15 @@
                     $counter = 1;
                     @endphp
 
-                    @foreach ($suscripciones as $suscripciones)
+                    @foreach ($suscripciones as $suscripcion)
                         <tr>
                             <td>{{$counter++}}</td>
-                            <td>{{$suscripciones->paquete}}</td>
-                            <td>{{$suscripciones->costo}}</td>
-                            <td>{{$suscripciones->duracion}}</td>
+                            <td>{{$suscripcion->paquete}}</td>
+                            <td>{{$suscripcion->costo}}</td>
+                            <td>{{$suscripcion->duracion}}</td>
                             <td>
-                                <button class="btn btn-warning btn-sm boton-editar" data-id="{{$suscripciones->id_paquete}}">Editar</button>
-                                <form id="form-eliminarPaquete" action="{{route('suscripciones.destroy', $suscripciones->id_paquete)}}" method="POST" class="d-inline">
+                                <button class="btn btn-warning btn-sm boton-editar" data-id="{{$suscripcion->id_paquete}}">Editar</button>
+                                <form id="form-eliminarPaquete" action="{{route('suscripciones.destroy', $suscripcion->id_paquete)}}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger btn-sm eliminar-boton" type="submit">Eliminar</button>
@@ -57,6 +57,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {{$suscripciones->links()}}
         </div>
 
         <!-- Modal de Crear Paquete-->

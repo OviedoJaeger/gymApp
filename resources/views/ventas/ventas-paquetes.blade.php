@@ -13,9 +13,6 @@
 
     <div class="card">
         <div class="card-header">
-            <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="">
-                Realizar Venta de Paquete
-            </button>
 
         </div>
         <div class="card-body">
@@ -34,17 +31,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Mensualidad
-                    </td>
-                    <td>400.00</td>
-                    <td> 30</td>
-                    <td>06/03/2024 20:45:15</td>
-                    <td>Alexis Martinez Alonso</td>
-                    <td>Charly Sanchez</td>
-                    <td></td>
-                </tr>
+
+                    @php
+                    $counter = 1;
+                    @endphp
+
+                    @foreach ($ventasPaquetes as $ventasPaquetes)
+                        <tr>
+                            <td>{{$counter++}}</td>
+                            <td>{{$asistencias->tipo_paquete}}</td>
+                            <td>{{$asistencias->cliente->apellido}}</td>
+                            <td>{{$asistencias->cliente->correo}}</td>
+                            <td>{{$asistencias->cliente->telefono}}</td>
+                            <td>{{$asistencias->created_at}}</td>
+                            <td>{{$asistencias->cliente->paquete}}</td>
+                            <td>1</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
 

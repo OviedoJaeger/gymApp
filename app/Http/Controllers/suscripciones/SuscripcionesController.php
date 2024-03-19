@@ -15,7 +15,7 @@ class SuscripcionesController extends Controller
      * Display a listing of the resource.
      */
     public function index(): View{
-        $suscripciones = Suscripciones::latest()->get();
+        $suscripciones = Suscripciones::latest()->paginate(10);
         return view('suscripciones.suscripciones', ['suscripciones' => $suscripciones]);
     }
 

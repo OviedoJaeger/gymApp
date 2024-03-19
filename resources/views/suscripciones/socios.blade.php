@@ -11,7 +11,7 @@
 @stop
 
 @section('content')
-    <p>Bienvenido a Socios -> AÑADIR BOTÓN DE "VENTA PAQUETE" A CADA SOCIO</p>
+    <p>Bienvenido a Socios</p>
 
     <div class="card">
         <div class="card-header">
@@ -27,48 +27,8 @@
         </div>
         <div class="card-body">
 
-            <table id="t-socios" class="table table-bordered table-striped tabla-datatables">
-                <thead>
-                    <tr>
-                        <th style="width: 5px">#</th>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Correo</th>
-                        <th>Telefono</th>
-                        <th>Fecha Inscripcion</th>
-                        <th>Paquete Actual</th>
-                        <th>Activo</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @php
-                    $counter = 1;
-                    @endphp
-
-                    @foreach ($clientes as $clientes)
-                        <tr>
-                            <td>{{$counter++}}</td>
-                            <td>{{$clientes->nombre}}</td>
-                            <td>{{$clientes->apellido}}</td>
-                            <td>{{$clientes->correo}}</td>
-                            <td>{{$clientes->telefono}}</td>
-                            <td>{{$clientes->created_at}}</td>
-                            <td>{{$clientes->paquete}}</td>
-                            <td>1</td>
-                            <td>
-                                <button class="btn btn-primary btn-sm boton-venta" data-id="{{$clientes->id}}">Venta Paquete</button>
-                                <button class="btn btn-warning btn-sm boton-editar" data-id="{{$clientes->id}}">Editar</button>
-                                <form id="form-eliminarPaquete" action="{{route('socios.destroy', $clientes->id)}}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger btn-sm eliminar-boton" type="submit">Eliminar</button>
-                                </form>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            {!! $dataTable->table()!!}
+            
         </div>
 
         <!-- Modal Agregar Socio-->
@@ -112,7 +72,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-house-user"></i></span>
                                     <input type="text" name="direccion" class="form-control" placeholder="Direccion" >
                                 </div>
                             </div>
@@ -123,15 +83,17 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <p>Fecha de Cumpleaños</p>
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    
+                                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
                                     <input type="date" name="fecha_cumple" class="form-control" placeholder="Fecha Cumpleaños" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="input-group-prepend col-xs-12 col-sm-6">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                        <input type="num" name="edad" class="form-control" placeholder="Edad" required>
+                                        <span class="input-group-text"><i class="fas fa-arrow-up"></i></span>
+                                        <input type="number" name="edad" class="form-control" placeholder="Edad" required>
                                 </div>
                                 <div class="input-group-prepend col-xs-12 col-sm-6">
                                     <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
@@ -151,18 +113,11 @@
                             <div class="form-group">
                                 <div class="input-group-prepend  panel">
                                     <span class="input-group-text"><i class="fas fa-image"></i></span>
-                                    <video autoplay></video>
-                                    
-                                    <canvas id="canvas" style="display:none;"></canvas>
                                     <input type="file" name="foto" class="">
                                     
                                 </div>
-                                <div class="input-group-prepend panel d-flex text-center">
-                                    <button type="button" id="capture">Capturar</button>
-                                </div>
                                 <div class="input-group-prepend panel">
-                                    <input type="hidden" id="hiddenImage" name="hiddenImage">
-                                    <img src="" class="mt-2 img-thumbnail previsualizar-foto" width="250 px">
+                                    <img src="" class="mt-2 img-thumbnail" id="foto-preview" width="250 px">
                                 </div>
                             </div>
                         </div>
@@ -275,7 +230,7 @@
         <div class="modal fade" id="modal-editar-socio" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form id="form-editarCliente" method="POST">
+                    <form id="form-editarCliente" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="modal-header">
@@ -293,61 +248,64 @@
                                 <div class="input-group-prepend">
                                     <!--ENTRADA PARA SELECCIONAR EL PAQUETE-->
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    <input type="text"  name="nombre"  class="form-control"  placeholder="Nombre">
+                                    <input type="text"  name="nombreEditar"  class="form-control"  placeholder="Nombre">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    <input type="text" name="apellido" class="form-control" placeholder="Apellido">
+                                    <input type="text" name="apellidoEditar" class="form-control" placeholder="Apellido">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="input-group-prepend col-xs-12 col-sm-6">
                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                    <input type="text" name="telefono" class="form-control" data-inputmask="'mask': '(99) 9999-9999'" placeholder="Telefono" data-mask>
+                                    <input type="text" name="telefonoEditar" class="form-control" data-inputmask="'mask': '(99) 9999-9999'" placeholder="Telefono" data-mask>
                                 </div>
                                 <div class="input-group-prepend col-xs-12 col-sm-6">
                                     <span class="input-group-text"><i class="fas fa-phone-volume"></i></span>
-                                    <input type="text" name="telefono_emergencia" class="form-control" placeholder="Telefono de emergencia" data-inputmask="'mask':'(99) 9999-9999'" data-mask required>
+                                    <input type="text" name="telefono_emergenciaEditar" class="form-control" placeholder="Telefono de emergencia" data-inputmask="'mask':'(99) 9999-9999'" data-mask required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    <input type="text" name="direccion" class="form-control" placeholder="Direccion">
+                                    <input type="text" name="direccionEditar" class="form-control" placeholder="Direccion">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                    <input type="email" name="correo" class="form-control" placeholder="Correo">
+                                    <input type="email" name="correoEditar" class="form-control" placeholder="Correo">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                    <input type="date" name="fecha_cumple" class="form-control" placeholder="Fecha Cumpleaños">
+                                    <input type="date" name="fecha_cumpleEditar" class="form-control" placeholder="Fecha Cumpleaños">
                                 </div>
                             </div>
                             <div class="form-group ">
                                 <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                        <input type="num" name="edad" class="form-control" placeholder="Edad">
+                                        <input type="num" name="edadEditar" class="form-control" placeholder="Edad">
                                 </div>
                                 
                             </div>
                             <div class="form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-clipboard"></i></span>
-                                    <input type="text" name="observaciones" class="form-control" placeholder="Observaciones">
+                                    <input type="text" name="observacionesEditar" class="form-control" placeholder="Observaciones">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group-prepend  panel">
                                     <span class="input-group-text"><i class="fas fa-image"></i></span>
-                                    <input type="file" name="foto" class="" capture="camera">
-                                    <img src="" class="mt-2 img-thumbnail previsualizar-foto" width="100 px">
+                                    <input type="file" name="fotoEditar" class="">
+                                    
+                                </div>
+                                <div class="input-group-prepend panel">
+                                    <img class="mt-2 img-thumbnail" id="foto-previewEditar" width="250 px">
                                 </div>
                             </div>
                         </div>
@@ -377,6 +335,12 @@
     <script src="{{asset('js/ini_datatable.js')}}"></script>
     <script src="{{asset('js/suscripciones/clientes.js')}}"></script>
     <script src="{{asset('js/general.js')}}"></script>
+    <script src="{{asset('vendor/ekko-lightbox/ekko-lightbox.min.js')}}"></script>
+
+    <script> var assetBaseUrl = "{{ asset('') }}"; 
+        var clientesIndexUrl = "{{ route('socios.index') }}";
+    </script>
+
 
     <script>
         @if(session('success'))
@@ -403,4 +367,5 @@
             });
             @endif
     </script>
+
 @stop

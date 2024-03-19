@@ -9,7 +9,6 @@
 @stop
 
 @section('content')
-    <p>Bienvenido a Visitas</p>
 
     <div class="card">
         <div class="card-header">
@@ -24,24 +23,22 @@
                     <th>Nombre</th>
                     <th>Apellidos</th>
                     <th>Fecha y Hora de Asistencia</th>
-                    <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td></td>
-                    <td>Charly</td>
-                    <td>Quesadilla</td>
-                    <td>2024-02-28 21:54:34</td>
-                    <td>X</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Zadad</td>
-                    <td>Oviedo</td>
-                    <td>2024-02-28 21:54:34</td>
-                    <td>X</td>
-                </tr>
+
+                    @php
+                    $counter = 1;
+                    @endphp
+
+                    @foreach ($asistenciasVisitas as $asistenciasVisitas)
+                        <tr>
+                            <td>{{$counter++}}</td>
+                            <td>{{$asistenciasVisitas->clientesVisitas->nombre}}</td>
+                            <td>{{$asistenciasVisitas->clientesVisitas->apellido}}</td>
+                            <td>{{$asistenciasVisitas->created_at}}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
 
