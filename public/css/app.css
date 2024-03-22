@@ -13,3 +13,7 @@ video {
     height: auto; /* Mantiene la proporción del video al cambiar el ancho */
 }
 
+
+table {
+    white-space: nowrap;
+}

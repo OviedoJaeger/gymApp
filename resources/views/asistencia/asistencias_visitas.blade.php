@@ -16,42 +16,21 @@
         </div>
         <div class="card-body">
 
-            <table id="t-socios" class="table table-bordered table-striped tabla-datatables">
-                <thead>
-                    <tr>
-                    <th style="width: 10px">#</th>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Fecha y Hora de Asistencia</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @php
-                    $counter = 1;
-                    @endphp
-
-                    @foreach ($asistenciasVisitas as $asistenciasVisitas)
-                        <tr>
-                            <td>{{$counter++}}</td>
-                            <td>{{$asistenciasVisitas->clientesVisitas->nombre}}</td>
-                            <td>{{$asistenciasVisitas->clientesVisitas->apellido}}</td>
-                            <td>{{$asistenciasVisitas->created_at}}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            {!! $dataTable->table()!!}
 
         </div>
     </div>
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
 @stop
 
 @section('js')
 
-    <script src="{{asset('js/ini_datatable.js')}}"></script>
+    <script src="{{asset('js/asistencia/asistencias_visitas.js')}}"></script>
+    <script> var assetBaseUrl = "{{ asset('') }}"; 
+        var RegistroVisitasIndexUrl = "{{ route('asistencias-visitas.index') }}";
+    </script>
 
 @stop

@@ -2,7 +2,8 @@
 
 namespace App\DataTables\suscripciones;
 
-use App\Models\Clientes;
+use App\Models\ClientesVisitas;
+use App\Models\Visita;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -13,35 +14,54 @@ use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use Carbon\Carbon;
 
-class ClientesDataTable extends DataTable
+class VisitasDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
+     *
      * 
-     * $btn .= '<form data-id="'.$row->id.'" action="'.route('socios.destroy', $row->id).'" method="POST" class="d-inline">';
-     *           $btn .= csrf_field();
-     *           $btn .= method_field('DELETE');
-     *           $btn .= '<button class="btn btn-danger btn-sm eliminar-boton" type="submit">Eliminar</button>';
-     *           $btn .= '</form>';
+     * 
      * 
      * @param QueryBuilder $query Results from query() method.
      */
+
+    /*  ->addColumn('accion', function($row){
+                $btn = '<button data-id="'.$row->id.'" class="btn btn-info btn-sm boton-visita">Registro Visita</button>';
+                $btn .= '<button data-id="'.$row->id.'" class="btn btn-warning btn-sm boton-editarVisita">Editar</button>';
+                
+                return $btn;
+            })*/
+
+            /* ->addColumn('foto', function($row){
+                if ($row->foto) {
+                    return '<a href="'.asset($row->foto).'" data-toggle="lightbox" data-title="Foto de: '.$row->nombre.'" data-gallery="gallery">
+                                <img src="'.asset($row->foto).'" class="img-thumbnail" width="50 px">
+                            </a>';
+                } else {
+                    return 'Sin Foto';
+                }
+            }) */
+
+            // ->rawColumns(['foto', 'accion']);
+
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
             ->editColumn('created_at', function($row){
                 return $row->created_at->format('d/m/Y');
+            })
+            ->editColumn('updated_at', function($row){
+                return $row->created_at->format('d/m/Y');
             });
+            
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Clientes $model): QueryBuilder
+    public function query(ClientesVisitas $model): QueryBuilder
     {
-        return $model->newQuery()
-        ->select('clientes.*')
-        ->orderBy('created_at', 'desc');
+        return $model->newQuery();
     }
 
     /**
@@ -50,12 +70,12 @@ class ClientesDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('clientes-table')
-                    ->setTableAttribute('class', 'table table-bordered table-striped')
+                    ->setTableId('visitas-table')
+                    ->setTableAttribute('class','table table-bordered table-striped')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(4, 'desc') // Ordena por 'created_at' en orden descendente
+                    //->orderBy('created_at', 'desc') // Ordena por 'created_at' en orden descendente
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -73,15 +93,13 @@ class ClientesDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            //Column::make(null)->title('#')->data('DT_RowIndex')->name('DT_RowIndex')->orderable(false)->searchable(false),
             Column::make('nombre'),
-            Column::make('apellidos'),
-            Column::make('correo'),
+            Column::make('apellido'),
             Column::make('telefono'),
-            Column::make('Fecha de Inscripción'),
-            Column::make('paquete'),
+            Column::make('domicilio'),
+            Column::make('fecha registro'),
+            Column::make('ultima visita'),
             Column::make('foto'),
-            Column::make('activo'),
             Column::computed('accion')
                 ->exportable(false)
                 ->printable(false)
@@ -95,6 +113,6 @@ class ClientesDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Clientes_' . date('YmdHis');
+        return 'registroVisitas' . date('YmdHis');
     }
 }

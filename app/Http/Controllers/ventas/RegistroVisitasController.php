@@ -1,24 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\asistencia;
+namespace App\Http\Controllers\ventas;
 
-use App\DataTables\asistencia\AsistenciasSociosDataTable;
 use App\Http\Controllers\Controller;
-use App\Models\Asistencias;
+use App\Models\RegistroVisitas;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
-use App\Models\Clientes;
 
-class AsistenciasController extends Controller
+class RegistroVisitasController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(AsistenciasSociosDataTable $dataTable)
+    public function index()
     {
-
-        return $dataTable->render('asistencia.asistencias_socios');
+        //
     }
 
     /**
@@ -40,17 +35,15 @@ class AsistenciasController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(RegistroVisitas $registroVisitas)
     {
-        $asistencias = Asistencias::where('id', $id)->first();
-        
-        return response()->json($asistencias);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Asistencias $asistencias)
+    public function edit(RegistroVisitas $registroVisitas)
     {
         //
     }
@@ -58,7 +51,7 @@ class AsistenciasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Asistencias $asistencias)
+    public function update(Request $request, RegistroVisitas $registroVisitas)
     {
         //
     }
@@ -66,7 +59,7 @@ class AsistenciasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Asistencias $asistencias)
+    public function destroy(RegistroVisitas $registroVisitas)
     {
         //
     }

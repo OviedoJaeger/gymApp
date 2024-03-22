@@ -14,6 +14,6 @@ class ClientesVisitas extends Model
 
     public function asistenciasVisitas()
     {
-        return $this->hasMany(AsistenciasVisitas::class, 'id_visita');
+        return $this->hasMany(RegistroVisitas::class, 'id_visita');
     }
 }

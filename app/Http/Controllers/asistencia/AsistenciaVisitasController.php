@@ -6,17 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\AsistenciasVisitas;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use App\Models\ClientesVisitas;
+use App\DataTables\asistencia\AsistenciasVisitasDataTable;
+use App\Models\RegistroVisitas;
 
 class AsistenciaVisitasController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index():View
+    public function index(AsistenciasVisitasDataTable $dataTable)
     {
-        $asistenciasVisitas = AsistenciasVisitas::latest()->get();
-        return view('asistencia.asistencias_visitas', ['asistenciasVisitas' => $asistenciasVisitas]);
+        return $dataTable->render('asistencia.asistencias_visitas');
     }
 
     /**
@@ -32,7 +32,7 @@ class AsistenciaVisitasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Agregar que valide los datos y hacer la funcion create
     }
 
     /**
@@ -40,14 +40,14 @@ class AsistenciaVisitasController extends Controller
      */
     public function show($id)
     {
-        $asistenciasVisitas = AsistenciasVisitas::where('id', $id)->first();
+        $asistenciasVisitas = RegistroVisitas::where('id', $id)->first();
         
         return response()->json($asistenciasVisitas);
     }
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(AsistenciasVisitas $asistenciasVisitas)
+    public function edit(RegistroVisitas $asistenciasVisitas)
     {
         //
     }
@@ -55,7 +55,7 @@ class AsistenciaVisitasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, AsistenciasVisitas $asistenciasVisitas)
+    public function update(Request $request, RegistroVisitas $asistenciasVisitas)
     {
         //
     }
@@ -63,7 +63,7 @@ class AsistenciaVisitasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AsistenciasVisitas $asistenciasVisitas)
+    public function destroy(RegistroVisitas $asistenciasVisitas)
     {
         //
     }

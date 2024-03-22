@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DataTables\suscripciones;
+namespace App\DataTables\asistencia;
 
-use App\Models\Clientes;
+use App\Models\RegistroVisitas;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -11,37 +11,31 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
-use Carbon\Carbon;
 
-class ClientesDataTable extends DataTable
+class AsistenciasVisitasDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
-     * 
-     * $btn .= '<form data-id="'.$row->id.'" action="'.route('socios.destroy', $row->id).'" method="POST" class="d-inline">';
-     *           $btn .= csrf_field();
-     *           $btn .= method_field('DELETE');
-     *           $btn .= '<button class="btn btn-danger btn-sm eliminar-boton" type="submit">Eliminar</button>';
-     *           $btn .= '</form>';
-     * 
+     *
      * @param QueryBuilder $query Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->editColumn('created_at', function($row){
-                return $row->created_at->format('d/m/Y');
-            });
+        ->editColumn('created_at', function($row){
+            return $row->created_at->format('d/m/Y H:i:s');
+        });
+            
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Clientes $model): QueryBuilder
+    public function query(RegistroVisitas $model): QueryBuilder
     {
         return $model->newQuery()
-        ->select('clientes.*')
-        ->orderBy('created_at', 'desc');
+        ->join('clientes_visitas', 'registro_visitas.id_visita', '=', 'clientes_visitas.id')
+        ->select('registro_visitas.*', 'clientes_visitas.nombre', 'clientes_visitas.apellido');
     }
 
     /**
@@ -50,12 +44,12 @@ class ClientesDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('clientes-table')
+                    ->setTableId('asistenciasVisitas-table')
                     ->setTableAttribute('class', 'table table-bordered table-striped')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(4, 'desc') // Ordena por 'created_at' en orden descendente
+                    ->orderBy(1)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -73,20 +67,13 @@ class ClientesDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            //Column::make(null)->title('#')->data('DT_RowIndex')->name('DT_RowIndex')->orderable(false)->searchable(false),
-            Column::make('nombre'),
-            Column::make('apellidos'),
-            Column::make('correo'),
-            Column::make('telefono'),
-            Column::make('Fecha de Inscripción'),
-            Column::make('paquete'),
-            Column::make('foto'),
-            Column::make('activo'),
-            Column::computed('accion')
-                ->exportable(false)
-                ->printable(false)
-                ->width(100)
-                ->addClass('text-center'),
+            Column::make('administrador'),
+            Column::make('metodo de pago'),
+            Column::make('costo'),
+            Column::make('referencia'),
+            Column::make('fecha de registro'),
+            Column::make('nombre', 'clientes_visitas.nombre'), // Asume que 'nombre' es una columna en la tabla 'clientes'
+            Column::make('apellido', 'clientes_visitas.apellido'), // Asume que 'apellido' es una columna en la tabla 'clientes'
         ];
     }
 
@@ -95,6 +82,6 @@ class ClientesDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Clientes_' . date('YmdHis');
+        return 'AsistenciasVisitas_' . date('YmdHis');
     }
 }

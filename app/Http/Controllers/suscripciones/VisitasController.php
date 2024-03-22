@@ -8,16 +8,18 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
+use App\DataTables\suscripciones\VisitasDataTable;
 
 class VisitasController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(VisitasDataTable $dataTable)
     {
-        $visitas = ClientesVisitas::latest()->paginate(10);
-        return view('suscripciones.visitas', ['visitas' => $visitas]);
+        //$visitas = ClientesVisitas::latest()->paginate(10);
+        //return view('suscripciones.visitas', ['visitas' => $visitas]);
+        return $dataTable->render('suscripciones.visitas');
     }
 
     /**
@@ -47,7 +49,7 @@ class VisitasController extends Controller
 
         if($request->hasFile('foto')) {
             $file = $request->file('foto');
-            $destinationPath = 'images/img-socios/';
+            $destinationPath = 'images/img-visitas/';
             $nombreArchivo = $request->nombre . '-' . $request->apellido . '-' . time() . '.' . $file->getClientOriginalExtension();
             $uploadSuccess = $request->file('foto')->move($destinationPath, $nombreArchivo);
 
@@ -56,7 +58,7 @@ class VisitasController extends Controller
         
         $visitas->save();
 
-        return redirect()->route('Clientes_Visitas.index')->with('success', 'Socio creado correctamente');
+        return redirect()->route('Clientes_Visitas.index')->with('success', 'Cliente creado correctamente');
     }
 
     /**
@@ -75,6 +77,12 @@ class VisitasController extends Controller
     public function edit(ClientesVisitas $clientes_Visitas)
     {
         //
+    }
+
+    public function updateVisita(Request $request, $id)
+    {
+        $clientes_Visita = ClientesVisitas::where('id', $id)->first();
+        return $clientes_Visita->update();
     }
 
     /**
@@ -115,7 +123,9 @@ class VisitasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy()
+    public function destroy($id)
     {
+        $visita = ClientesVisitas::where('id', $id)->get();
+        return redirect()->route('visitas.index')->with('success', 'Visita eliminada');
     }
 }

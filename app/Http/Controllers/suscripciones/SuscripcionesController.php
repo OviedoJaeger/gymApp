@@ -7,6 +7,9 @@ use App\Models\Suscripciones;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Facades\DataTables;
+use App\DataTables\suscripciones\SuscripcionesDataTable;
 
 
 class SuscripcionesController extends Controller
@@ -14,14 +17,19 @@ class SuscripcionesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View{
-        $suscripciones = Suscripciones::latest()->paginate(10);
-        return view('suscripciones.suscripciones', ['suscripciones' => $suscripciones]);
+    public function index(SuscripcionesDataTable $dataTable)
+    {
+        return $dataTable->render('suscripciones.suscripciones');
     }
 
     public function getPaquetes() {
         $paquetes = Suscripciones::all();
         return response()->json($paquetes);
+    }
+
+    public function paqueteVisita() {
+        $visita = Suscripciones::whereRaw('LOWER(paquete) = ?', 'visita')->first();
+        return response()->json($visita);
     }
 
     /**
@@ -44,7 +52,9 @@ class SuscripcionesController extends Controller
             'duracion' =>'required'
         ]);
 
-        Suscripciones::create($request->all());
+        $suscripcion = new Suscripciones($request->all());
+
+        $suscripcion->save();
         return redirect()->route('suscripciones.index')->with('success', 'Paquete creado correctamente');
     }
 
@@ -55,7 +65,7 @@ class SuscripcionesController extends Controller
     {
         
         //$suscripcion = Suscripciones::find($id); Esta funcion busca por defecto el campo "id" de la tabla, si se quiere buscar un campo con nombre diferente, se debe usar la linea de abajo
-        $suscripcion = Suscripciones::where('id_paquete', $id)->first();
+        $suscripcion = Suscripciones::where('id', $id)->first();
         
         return response()->json($suscripcion);
     }
@@ -74,13 +84,19 @@ class SuscripcionesController extends Controller
     public function update(Request $request, $id): RedirectResponse
     {
         $request->validate([
-            'paquete' => 'required',
-            'costo' => 'required',
-            'duracion' =>'required'
+            'paqueteEditar' => 'required',
+            'costoEditar' => 'required',
+            'duracionEditar' =>'required'
         ]);
         
-        $suscripcion = Suscripciones::where('id_paquete', $id);
-        $suscripcion->update($request->except('_token', '_method'));
+        $suscripcion = Suscripciones::where('id', $id)->first();
+
+        $suscripcion->paquete = $request->input('paqueteEditar');
+        $suscripcion->costo = $request->input('costoEditar');
+        $suscripcion->duracion = $request->input('duracionEditar');
+
+        $suscripcion->save($request->except('_token', '_method'));
+
         return redirect()->route('suscripciones.index')->with('success', 'Paquete Editado correctamente');
     }
 
@@ -89,7 +105,7 @@ class SuscripcionesController extends Controller
      */
     public function destroy($id)
     {
-        $suscripcion = Suscripciones::where('id_paquete', $id);
+        $suscripcion = Suscripciones::where('id', $id);
         $suscripcion->delete();
         return redirect()->route('suscripciones.index')->with('success', 'Paquete Eliminado correctamente');
     }

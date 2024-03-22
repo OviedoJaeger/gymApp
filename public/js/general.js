@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    $('.eliminar-boton').on('click', function(e) {
+    $('body').on('click', '.eliminar-boton', function() {
         e.preventDefault();
         
         Swal.fire({

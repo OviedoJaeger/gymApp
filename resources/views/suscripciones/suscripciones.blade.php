@@ -20,146 +20,22 @@
                     Agregar Suscripción
                 </button>
             </div>
-
         </div>
         <div class="card-body">
 
-            <table id="tabla-suscripciones" class="table table-bordered table-striped tabla-datatables">
-                <thead>
-                    <tr>
-                    <th style="width: 10px">#</th>
-                    <th>Paquete</th>
-                    <th>Costo</th>
-                    <th>Duracion</th>
-                    <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @php
-                    $counter = 1;
-                    @endphp
-
-                    @foreach ($suscripciones as $suscripcion)
-                        <tr>
-                            <td>{{$counter++}}</td>
-                            <td>{{$suscripcion->paquete}}</td>
-                            <td>{{$suscripcion->costo}}</td>
-                            <td>{{$suscripcion->duracion}}</td>
-                            <td>
-                                <button class="btn btn-warning btn-sm boton-editar" data-id="{{$suscripcion->id_paquete}}">Editar</button>
-                                <form id="form-eliminarPaquete" action="{{route('suscripciones.destroy', $suscripcion->id_paquete)}}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger btn-sm eliminar-boton" type="submit">Eliminar</button>
-                                </form>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            {{$suscripciones->links()}}
+            {!! $dataTable->table()!!}
+            
         </div>
 
-        <!-- Modal de Crear Paquete-->
-        <div class="modal fade" id="modal-agregar-suscripcion" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form action="{{route('suscripciones.store')}}" method="POST">
-                        @csrf
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalLabel">Agregar Suscripción</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <!--=========================================
-                                CUERPO DEL MODAL AGREGAR PAQUETE
-                        ==========================================-->
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <div class="input-group-prepend">
-                                    <!--ENTRADA PARA SELECCIONAR EL PAQUETE-->
-                                    <span class="input-group-text"><i class="fas fa-box"></i></span>
-                                    <input type="text" name="paquete" class="form-control" placeholder="Nombre del Paquete" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-                                    <input type="number" name="costo" class="form-control" placeholder="Costo del paquete" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                                    <input type="number" name="duracion" class="form-control" id="" placeholder="Plazo de tiempo del paquete (dias)" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                        </div>
-                            
-                    </form>
-                </div>
-            </div>
-            <!-- Fin del Modal -->
-        </div>
-
-        <!-- Modal de Editar Paquete-->
-        <div class="modal fade" id="modal-editar-suscripcion" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form id="form-editarPaquete" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalLabel">Editar Suscripción</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <!--=========================================
-                                CUERPO DEL MODAL EDITAR PAQUETE
-                        ==========================================-->
-                        <div class="modal-body">
-                            <input type="hidden" id="modal-id-input">
-                            <div class="form-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-box"></i></span>
-                                    <input type="text" name="paquete" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-                                    <input type="number" name="costo" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                                    <input type="number" name="duracion" class="form-control" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                        </div>
-                            
-                    </form>
-                </div>
-            </div>
-            <!-- Fin del Modal -->
-        </div>
+        @include('suscripciones.modales.suscripciones') 
 
     </div>
 
 @stop
 
 @section('css')
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+
 @stop
 
 @section('js')
@@ -167,7 +43,12 @@
     <script src="{{asset('js/suscripciones/suscripciones.js')}}"></script>
     <script src="{{asset('js/general.js')}}"></script>
 
+    <script> var destroyUrlBase = "{{ url('suscripciones/') }}";
+        var suscripcionesIndexUrl = "{{ route('suscripciones.index') }}";
+        var csrfToken = "{{ csrf_token() }}";
     </script>
+
+
     <script>
         @if(session('success'))
             Swal.fire({

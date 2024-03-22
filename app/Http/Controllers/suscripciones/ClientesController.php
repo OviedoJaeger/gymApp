@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use App\DataTables\suscripciones\ClientesDataTable;
+use Carbon\Carbon;
 
 class ClientesController extends Controller
 {
@@ -40,7 +41,6 @@ class ClientesController extends Controller
             'nombre' => 'required',
             'apellido' => 'required',
             'telefono_emergencia' =>'required',
-            'correo' =>'required',
             'sexo' =>'required',
             'fecha_cumple' =>'required'
         ]);
@@ -87,7 +87,6 @@ class ClientesController extends Controller
             'nombreEditar' => 'required', 
             'apellidoEditar' => 'required',
             'telefono_emergenciaEditar' =>'required',
-            'correoEditar' =>'required',
             'fecha_cumpleEditar' =>'required'
         ]);
 
@@ -106,14 +105,50 @@ class ClientesController extends Controller
         $cliente->telefono = $request->input('telefonoEditar');
         $cliente->telefono_emergencia = $request->input('telefono_emergenciaEditar');
         $cliente->direccion = $request->input('direccionEditar');
-        $cliente->correo = $request->input('correoEditar');
         $cliente->fecha_cumple = $request->input('fecha_cumpleEditar');
         $cliente->edad = $request->input('edadEditar');
         $cliente->observaciones = $request->input('observacionesEditar');
         
-        
         $cliente->save($request->except('_token', '_method'));
+        
         return redirect()->route('socios.index')->with('success', 'Socio Editado correctamente');
+    }
+
+    public function updateClienteVenta (Request $request, $id)
+    {
+        $request->validate([
+            'paquete' => 'required',
+            'fecha_inicio' => 'required',
+        ]);
+        
+
+        $venta = Clientes::where('id', $id)->firstOrFail();
+
+        $venta->paquete = $request->input('paquete');
+
+        if($request->input('adeudo')){
+
+            $venta->adeudo = $request->input('adeudo');
+        }
+
+        $venta->fecha_inicio = $request->input('fecha_inicio');
+
+        $fechaInicio = Carbon::parse($request->input('fecha_inicio'));
+        $duracion = $request->input('duracion');
+
+        $fechaTermino = $fechaInicio->copy()->addDays($duracion);
+
+        $venta->fecha_termino = $fechaTermino;
+
+        if ($venta->paquetes_renovados == null) {
+            $venta->paquetes_renovados = 1;
+        } else{
+            $venta->paquetes_renovados += 1;
+        };
+
+        $venta->save();
+
+        return response(null, 204);
     }
 
 

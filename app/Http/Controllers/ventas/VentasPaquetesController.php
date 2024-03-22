@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\ventas;
 
+use App\DataTables\ventas\VentasPaquetesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\VentasPaquetes;
 use Illuminate\Http\Request;
@@ -12,10 +13,9 @@ class VentasPaquetesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index():View
+    public function index(VentasPaquetesDataTable $dataTable)
     {
-        $ventasPaquetes = VentasPaquetes::latest()->get();
-        return view('ventas.ventas-paquetes', ['ventasPaquetes' => $ventasPaquetes]);
+        return $dataTable->render('ventas.ventas-paquetes');
     }
 
     /**
@@ -30,7 +30,7 @@ class VentasPaquetesController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    { 
         //
     }
 
