@@ -26,8 +26,8 @@ $(document).ready(function() {
             { data: 'apellido', name: 'apellido' },
             { data: 'telefono', name: 'telefono'},
             { data: 'domicilio', name: 'domicilio'},
-            { data: 'created_at', name: 'fecha registro'},
-            { data: 'updated_at', name: 'ultima visita'},
+            { data: 'created_at', name: 'created_at'},
+            { data: 'updated_at', name: 'updated_at'},
 
             // FOTOS
             {
@@ -45,8 +45,10 @@ $(document).ready(function() {
             {
                 data: 'id',
                 render: function(data, type, row) {
-                    return '<button data-id="' + data + '" class="btn btn-info btn-sm boton-registrar">Nueva Visita</button>' +
-                            '<button data-id="' + data + '" class="btn btn-warning btn-sm boton-editar">Editar</button>';
+                    return '<div class="btn-group">' +  
+                        '<button data-id="' + data + '" class="btn btn-info btn-sm boton-registrar">Nueva Visita</button>' +
+                        '<button data-id="' + data + '" class="ml-1 btn btn-warning btn-sm boton-editar"><i class="fas fa-edit"></i></button>' +
+                        '</div>';
                 }, name: 'accion', orderable: false, searchable: false
             }
         ]
@@ -159,10 +161,10 @@ $(document).ready(function() {
     
         var registroVisitaDatos = {
             id_visita: $('input[name="id-cliente"]').val(),
-            costo: $('input[name="costo"]').val(),
-            nombre_administrador: $('input[name="nombre-usuario"]').val(),
-            metodo_pago: $('select[name="metodo_pago"]').val(),
-            referencia: $('input[name="referencia"]').val() || null,
+            costo: $('input[name="costoVisita"]').val(),
+            nombre_administrador: $('input[name="nombreAdmin"]').val(),
+            metodo_pago: $('select[name="metodoPagoVisita"]').val(),
+            referencia: $('input[name="referenciaPagoVisita"]').val() || null,
         }; // Recoge los datos del formulario para la venta de paquete
     
         //Realiza el nuevo registro de la visita (asistencia visita a la vez)

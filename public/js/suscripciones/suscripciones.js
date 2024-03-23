@@ -52,12 +52,14 @@ $(document).ready(function() {
                 
                 data: 'id',
                 render: function(data, type, row) {
-                    return  '<button data-id="' + data + '" class="btn btn-warning btn-sm boton-editar">Editar</button>' +
-                    '<form data-id="' + data + '" action="' + destroyUrlBase + '/' + data + '" method="POST" class="d-inline">' +
-                    '<input type="hidden" name="_method" value="DELETE">' +
-                    '<input type="hidden" name="_token" value="' + csrfToken + '">' +
-                    '<button class="btn btn-danger btn-sm eliminar-boton" type="submit">Eliminar</button>' +
-                    '</form>';
+                    return '<div class="btn-group">' +  
+                            '<button data-id="' + data + '" class="ml-1 btn btn-warning btn-sm boton-editar"><i class="fas fa-edit"></i></button>' +
+                            '<form data-id="' + data + '" action="' + destroyUrlBase + '/' + data + '" method="POST" class="d-inline">' +
+                            '<input type="hidden" name="_method" value="DELETE">' +
+                            '<input type="hidden" name="_token" value="' + csrfToken + '">' +
+                            '<button class="ml-1 btn btn-danger btn-sm eliminar-boton" type="submit"><i class="fas fa-trash-alt"></i></button>' +
+                            '</form>' +
+                            '</div>';
 
                 }, name: 'accion', orderable: false, searchable: false
             },

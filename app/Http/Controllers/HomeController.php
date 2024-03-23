@@ -27,10 +27,7 @@ class HomeController extends Controller
     }  
 
 
-    public function visitas()
-    {
-        return view('suscripciones/visitas');
-    }
+    
 
     public function crearVenta()
     {
@@ -42,10 +39,7 @@ class HomeController extends Controller
         return view('ventas/reportes-ventas');
     }
 
-    public function inventario()
-    {
-        return view('ventas/inventario');
-    }
+    
 
     public function configuracion()
     {
@@ -61,14 +55,7 @@ class HomeController extends Controller
     {
         return view('administracion/reportes');
     }
-    public function asistencias_socios()
-    {
-        return view('asistencia/asistencias_socios');
-    }
-    public function asistencias_visitas()
-    {
-        return view('asistencia/asistencias_visitas');
-    }
+    
     public function ventas_productos()
     {
         return view('ventas/ventas-productos');

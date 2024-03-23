@@ -20,105 +20,54 @@
 
         <div class="card-body">
 
-            <table id="t-socios" class="table table-bordered table-striped tabla-datatables">
-                <thead>
-                    <tr>
-                    <th style="width: 10px">#</th>
-                    <th>Imagen</th>
-                    <th>Código</th>
-                    <th>Descripcion</th>
-                    <th>Stock</th>
-                    <th>Precio Compra</th>
-                    <th>Precio Venta</th>
-                    <th>Agregado</th>
-                    <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td></td>
-                    <td>Trident.jpg</td>
-                    <td>5480022</td>
-                    <td>Trident Menta</td>
-                    <td> 4</td>
-                    <td>$2.00</td>
-                    <td>$4.00</td>
-                    <td>2023-11-13 17:58:17</td>
-                    <td>X</td>
-                </tr>
-                </tbody>
-            </table>
+            {!! $dataTable->table()!!}
+
         </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="modal-agregar-suscripcion" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalLabel">Agregar Producto</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <!--=========================================
-                                CUERPO DEL MODAL AGREGAR SOCIO
-                        ==========================================-->
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <div class="input-group-prepend">
-                                    <!--ENTRADA PARA SELECCIONAR EL PAQUETE-->
-                                    <span class="input-group-text"><i class="fas fa-barcode"></i></span>
-                                    <input type="text" class="form-control" id="" placeholder="Codigo">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-bars"></i></span>
-                                    <input type="text" class="form-control" id="" placeholder="Descripcion">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-check"></i></span>
-                                    <input type="number" class="form-control" id="" min="0" placeholder="Cantidad Disponible" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="input-group-prepend col-xs-12 col-sm-6">
-                                        <span class="input-group-text"><i class="fas fa-arrow-up"></i></span>
-                                        <input type="number" class="form-control" id="" placeholder="Precio Compra">
-                                </div>
-                                <div class="input-group-prepend col-xs-12 col-sm-6">
-                                    <span class="input-group-text"><i class="fas fa-arrow-down"></i></span>
-                                    <input type="number" class="form-control" id="" placeholder="Precio Venta">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group-prepend  panel">
-                                    <span class="input-group-text"><i class="fas fa-image"></i></span>
-                                    <input type="file" class="" id="">
-                                    <img src="" class="mt-2 img-thumbnail previsualizar-foto" width="100 px">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-            <!-- Fin del Modal -->
+        @include('ventas.modales.inventario')
 
     </div>
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <!-- DataTables Botones-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
 @stop
 
 @section('js')
-    <script src="{{asset('js/ini_datatable.js')}}"></script>
+
+    <!-- DataTables Botones-->
+    <script src="{{asset('vendor/datatables-plugins/buttons/js/dataTables.buttons.min.js')}}"></script>
+
+    <script src="{{asset('js/ventas/inventario.js')}}"></script>
+    <script src="{{asset('js/general.js')}}"></script>
+    <script> var assetBaseUrl = "{{ asset('') }}"; 
+        var inventarioIndexUrl = "{{ route('inventario.index') }}";
+    </script>
+
+    <script>
+        @if(session('success'))
+            Swal.fire({
+                title: '¡Éxito!',
+                text: "{{ session('success') }}",
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        @endif
+
+        @if ($errors->any())
+        let contentHtml = '<ul>';
+        @foreach ($errors->all() as $error)
+                contentHtml += '<li>{{ $error }}</li>';
+            @endforeach
+            contentHtml += '</ul>';
+
+            Swal.fire({
+                title: '¡Error!',
+                html: contentHtml,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            @endif
+    </script>
 @stop

@@ -70,6 +70,12 @@ class ClientesController extends Controller
         return response()->json($cliente);
     }
 
+    public function detalles($id): View
+    {
+        $clientesDetalles = clientes::where('id', $id)->first();
+        return view('suscripciones.detallesSocio', compact('clientesDetalles'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

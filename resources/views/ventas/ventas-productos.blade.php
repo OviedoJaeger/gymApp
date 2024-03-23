@@ -13,38 +13,14 @@
 
     <div class="card">
         <div class="card-header">
-            <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="">
+            <a class="btn btn-primary float-left" href="{{ route('crear-venta') }}" >
                 Realizar Venta de Producto
-            </button>
+            </a>
 
         </div>
         <div class="card-body">
 
-            <table id="t-administradores" class="table table-bordered table-striped tabla-datatables">
-                <thead>
-                    <tr>
-                    <th style="width: 10px">#</th>
-                    <th>Código Venta</th>
-                    <th>Administrador</th>
-                    <th>Método de Pago</th>
-                    <th>Turno</th>
-                    <th>Fecha de Venta</th>
-                    <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>10005
-                    </td>
-                    <td>Alexis Martinez</td>
-                    <td>Transferencia</td>
-                    <td>Vespertino</td>
-                    <td>06/03/2024 20:45:15</td>
-                    <td>Ver Detalles/Editar/Eliminar</td>
-                </tr>
-                </tbody>
-            </table>
+            {!! $dataTable->table()!!}
 
         </div>
 
@@ -56,5 +32,12 @@
 @stop
 
 @section('js')
-    <script src="{{asset('js/ini_datatable.js')}}"></script>
+<script src="{{asset('js/ini_datatable.js')}}"></script>
+<script src="{{asset('js/ventas/venta_productos.js')}}"></script>
+<script src="{{asset('js/general.js')}}"></script>
+
+
+<script> var assetBaseUrl = "{{ asset('') }}"; 
+    var VentaProductosIndexUrl = "{{ route('ventas-productos.index') }}";
+</script>
 @stop

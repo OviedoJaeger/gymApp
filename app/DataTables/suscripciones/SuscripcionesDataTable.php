@@ -2,7 +2,6 @@
 
 namespace App\DataTables\suscripciones;
 
-use App\Models\Suscripcione;
 use App\Models\Suscripciones;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;

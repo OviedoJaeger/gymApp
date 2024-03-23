@@ -81,8 +81,9 @@ class VisitasController extends Controller
 
     public function updateVisita(Request $request, $id)
     {
-        $clientes_Visita = ClientesVisitas::where('id', $id)->first();
-        return $clientes_Visita->update();
+        $clientes_Visita = ClientesVisitas::find($id);
+        $clientes_Visita->touch();
+        return response(null, 204);;
     }
 
     /**

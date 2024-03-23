@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    // Inicializa la tabla de lockers
+
     $('body').on('click', '.eliminar-boton', function(e) {
         e.preventDefault();
         
@@ -19,8 +21,7 @@ $(document).ready(function() {
         })
     });
     
-    
-    $('#ventaspaquetes-table').DataTable({
+    $('#lockers-table').DataTable({
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros por pagina",
             "zeroRecords": "No se encontraron resultados en su busqueda",
@@ -38,28 +39,26 @@ $(document).ready(function() {
         },
         processing: true,
         serverSide: true,
-        ajax: VentaPaquetesIndexUrl,
+        ajax: lockersIndexUrl,
         columns: [
-            { data: 'tipo_paquete', name: 'tipo_paquete' },
-            { data: 'costo', name: 'costo'},
-            { data: 'duracion', name: 'duracion'},
+            /*{ data: null, title: '#', render: function (data, type, row, meta) {
+                return meta.row + 1;
+            }},*/
+            { data: 'numero', name: 'numero' },
+            { data: 'cliente', name: 'cliente' },
             { data: 'created_at', name: 'created_at'},
-            { data: 'nombre', name: 'clientes.nombre' },
-            { data: 'apellido', name: 'clientes.apellido' },
-            { data: 'nombre_administrador', name: 'nombre_administrador' },
-
-        //BOTONES
-        {      
-            data: 'id',
-            render: function(data, type, row) {
-                return  '<form data-id="' + data + '" action="' + destroyUrlBase + '/' + data + '" method="POST" class="d-inline">' +
+            //BOTONES
+            {      
+                data: 'id',
+                render: function(data, type, row) {
+                    return  '<form data-id="' + data + '" action="' + destroyUrlBase + '/' + data + '" method="POST" class="d-inline">' +
                     '<input type="hidden" name="_method" value="DELETE">' +
                     '<input type="hidden" name="_token" value="' + csrfToken + '">' +
                     '<button class="ml-1 btn btn-danger btn-sm eliminar-boton" type="submit"><i class="fas fa-trash-alt"></i></button>' +
                     '</form>';
 
-            }, name: 'accion', orderable: false, searchable: false
-        },
+                }, name: 'accion', orderable: false, searchable: false
+            },
         ]
     });
 

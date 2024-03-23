@@ -76,7 +76,7 @@
                     <div class="form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
-                            <input type="text" class="form-control" placeholder="Vendedor" value="{{ auth()->user()->name}}" required readonly>
+                            <input type="text" class="form-control" name="nombreAdmin" placeholder="Vendedor" value="{{ auth()->user()->name}}" required readonly>
                         </div>
                     </div>
                     <label>Nombre del Cliente</label>
@@ -102,7 +102,7 @@
                     <div class="form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
-                            <select class="form-control" id="metodoPagoVisita" required>
+                            <select class="form-control" id="metodoPagoVisita" name="metodoPagoVisita" required>
                                 <option value="">Metodo Pago</option>
                                 <option value="Efectivo">Efectivo</option>
                                 <option value="Tarjeta">Tarjeta</option>
@@ -114,7 +114,7 @@
                     <div class="form-group" id="referenciaNuevaVisita" hidden>
                         <div class="input-group-prepend" >
                             <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
-                            <input type="number" name="refereciaPagoVisita" class="form-control"placeholder="referencia">
+                            <input type="number" name="referenciaPagoVisita" class="form-control"placeholder="referencia">
                         </div>
                     </div>
                     

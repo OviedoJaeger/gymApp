@@ -48,10 +48,10 @@ class VisitasDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->editColumn('created_at', function($row){
-                return $row->created_at->format('d/m/Y');
+                return $row->created_at->format('d/m/Y H:i:s');
             })
             ->editColumn('updated_at', function($row){
-                return $row->created_at->format('d/m/Y');
+                return $row->updated_at->format('d/m/Y H:i:s');
             });
             
     }
@@ -61,7 +61,9 @@ class VisitasDataTable extends DataTable
      */
     public function query(ClientesVisitas $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()
+        ->select('clientes_visitas.*')
+        ->orderBy('created_at', 'desc');
     }
 
     /**

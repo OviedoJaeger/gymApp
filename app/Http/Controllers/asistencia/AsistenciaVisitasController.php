@@ -7,6 +7,7 @@ use App\Models\AsistenciasVisitas;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\DataTables\asistencia\AsistenciasVisitasDataTable;
+use App\Models\Asistencias;
 use App\Models\RegistroVisitas;
 
 class AsistenciaVisitasController extends Controller
@@ -32,7 +33,18 @@ class AsistenciaVisitasController extends Controller
      */
     public function store(Request $request)
     {
-        //Agregar que valide los datos y hacer la funcion create
+        $request->validate([
+            'id_visita' => 'required',
+            'costo' => 'required',
+            'metodo_pago' =>'required',
+            'nombre_administrador' =>'required'
+        ]);
+
+        $visita = new RegistroVisitas($request->all());
+
+        $visita->save();
+        
+        return response(null, 204);
     }
 
     /**

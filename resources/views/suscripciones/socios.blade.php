@@ -39,20 +39,21 @@
 
 @section('css')
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    
 @stop
 
 @section('js')
     <script src="{{ asset('vendor/inputmask/inputmask.min.js') }}"></script>
     <script src="{{ asset('vendor/inputmask/jquery.inputmask.min.js') }}"></script>
     <script src="{{ asset('js/app.js')}}"></script>
-    <script src="{{asset('js/ini_datatable.js')}}"></script>
     <script src="{{asset('js/suscripciones/clientes.js')}}"></script>
     <script src="{{asset('js/general.js')}}"></script>
     <script src="{{asset('vendor/ekko-lightbox/ekko-lightbox.min.js')}}"></script>
 
+
     <script> var assetBaseUrl = "{{ asset('') }}"; 
         var clientesIndexUrl = "{{ route('socios.index') }}";
+        var urlDetallesSocio = "{{ route('detalles-socio', ['id' => 'ID']) }}";
+
     </script>
 
 

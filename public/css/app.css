@@ -13,6 +13,10 @@ video {
     height: auto; /* Mantiene la proporción del video al cambiar el ancho */
 }
 
+.btn-group.space-between > * {
+    margin-right: 10px;
+}
+
 
 table {
     white-space: nowrap;

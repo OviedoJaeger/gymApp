@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\suscripciones;
 
+use App\DataTables\suscripciones\LockersDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Lockers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 
 class LockersController extends Controller
@@ -13,10 +16,9 @@ class LockersController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index():View
+    public function index(LockersDataTable $dataTable)
     {
-        $lockers = lockers::latest()->get();
-        return view('suscripciones.lockers', ['lockers' => $lockers]);
+        return $dataTable->render('suscripciones.lockers');
     }
 
     /**

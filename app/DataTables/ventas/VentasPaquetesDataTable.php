@@ -34,7 +34,8 @@ class VentasPaquetesDataTable extends DataTable
     {
         return $model->newQuery()
         ->join('clientes', 'ventas_paquetes.id_cliente', '=', 'clientes.id')
-        ->select('ventas_paquetes.*', 'clientes.nombre', 'clientes.apellido');
+        ->select('ventas_paquetes.*', 'clientes.nombre', 'clientes.apellido')
+        ->orderBy('created_at', 'desc');
     }
 
     /**
@@ -44,6 +45,7 @@ class VentasPaquetesDataTable extends DataTable
     {
         return $this->builder()
                     ->setTableId('ventaspaquetes-table')
+                    ->setTableAttribute('class', 'table table-bordered table-striped')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')

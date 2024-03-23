@@ -20,6 +20,9 @@
         </div>
         <div class="card-body">
 
+            @php
+                $counter = 1;
+            @endphp
             <table id="t-administradores" class="table table-bordered table-striped tabla'datatables">
                 <thead>
                     <tr>
@@ -33,86 +36,48 @@
                     </tr>
                 </thead>
                 <tbody>
+                @foreach($usuarios as $usuario)
                 <tr>
-                    <td>1</td>
-                    <td>Alexis Martinez</td>
-                    <td>Alex</td>
-                    <td>Admin</td>
-                    <td>Activo</td>
-                    <td>06/03/2024 20:45:15</td>
-                    <td>Ver Detalles/Editar/Eliminar</td>
+                    
+                    <td>{{$counter++}}</td>
+                    <td>{{$usuario->name}}</td>
+                    <td>{{$usuario->username}}</td>
+                    <td>{{$usuario->rol}}</td>
+                    <td>{{$usuario->estado}}</td>
+                    <td>{{$usuario->ultimo_inicio}}</td>
+                    <td>
+
+                        <div class="btn-group d-flex space-between">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-editar-usuario">
+                                Editar
+                            </button>
+
+                            <form action="{{ route('configuracion.destroy', $usuario) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger" type="submit">Eliminar usuario</button>
+                            </form>
+                        </div>
+                    </td>
+                    
                 </tr>
+                @endforeach
                 </tbody>
             </table>
 
         </div>
-        <!-- Modal Agregar Usuario-->
-        <div class="modal fade" id="modal-agregar-usuario" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalLabel">Agregar Usuario</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <!--=========================================
-                                CUERPO DEL MODAL AGREGAR USUARIO
-                        ==========================================-->
-                        <div class="modal-body">
 
-                            <div class="form-group">
-                                <div class="input-group-prepend">
-                                    <!--ENTRADA PARA SELECCIONAR EL PAQUETE-->
-                                    <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
-                                    <input type="text" class="form-control" id="" placeholder="Nombre">
-                                </div>
-                            </div>
 
-                            <div class="form-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    <input type="text" class="form-control" id="" placeholder="Usuario">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                    <input type="password" class="form-control" id="" placeholder="Contraseña">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-id-card"></i></span>
-                                    <select class="form-control">
-                                        <option value="">Rol</option>
-                                        <option value="">Encargado</option>
-                                        <option value="">Empleado</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-            <!-- Fin del Modal -->
+        @include('administracion.modales.configuracion')
 
     </div>
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
 @stop
 
 @section('js')
-    <script src="{{asset('js/ini_datatable.js')}}"></script>
+    <script src="{{asset('js/administracion/configuracion.js')}}"></script>
+    <script src="{{asset('js/general.js')}}"></script>
 @stop

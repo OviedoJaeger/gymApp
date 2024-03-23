@@ -33,19 +33,7 @@ $(document).ready(function() {
             { data: 'telefono', name: 'telefono'},
             { data: 'created_at', name: 'fecha_inicio'},
             { data: 'paquete', name: 'paquete'},
-            //FOTO
-            {
-                data: 'foto',
-                render: function(data, type, row) {
-                    if (data) {
-                        return '<a href="' + data + '" data-toggle="lightbox" data-title="Foto de: ' + row.nombre + '" data-gallery="gallery">' +
-                                '<img src="' + assetBaseUrl + data + '" class="img-thumbnail" width="50 px"></a>';
-                    } else {
-                        return 'Sin Foto';
-                    }
-                }, name: 'foto', orderable: false, searchable: false
-            },
-            //ACTIVO
+            //CAMPO DE ACTIVO
             {
                 data: null,
                 render: function(data, type, row) {
@@ -60,19 +48,51 @@ $(document).ready(function() {
                     }
                 }, name: 'activo', orderable: false, searchable: false
             },
-            //BOTONES
+            //BOTONES VER DETALLES, EDITAR Y VENTA PAQUETE
             {
                 data: 'id',
                 render: function(data, type, row) {
-                    return '<button data-id="' + data + '" class="btn btn-info btn-sm boton-venta">Venta Paquete</button>' +
-                            '<button data-id="' + data + '" class="btn btn-warning btn-sm boton-editar">Editar</button>';
+                    return '<div class="btn-group">' +
+                        '<button class="btn btn-info btn-sm " onclick="window.open(urlDetallesSocio.replace(\'ID\', ' + data + '), \'_blank\', \'width=500,height=800,left=200,top=200\');">Detalles</button>' +
+                        '<button data-id="' + data + '" class="btn btn-success btn-sm boton-venta ml-1">Venta Paquete</button>' +
+                        '<button data-id="' + data + '" class="ml-1 btn btn-warning btn-sm boton-editar"><i class="fas fa-edit"></i></button>' +
+                        '</div>' +
+                    '</div>';
                 }, name: 'accion', orderable: false, searchable: false
             },
         ]
     });
 
 
+    // Boton de Ver Detalles del Clientes
 
+    /*
+    $('body').on('click', '.boton-detalles', function() {
+        var id = $(this).data('id');
+        $.ajax({
+            url: 'socios/' + id,
+            method: 'GET',
+            success: function(data) {
+                // Inserta los datos en el modal
+                $('#modal-id-input').val(data.id);
+                $('input[name="nombreEditar"]').val(data.nombre);
+                $('input[name="apellidoEditar"]').val(data.apellido);
+                $('#foto-previewEditar').attr('src', assetBaseUrl + data.foto);
+                $('input[name="telefonoEditar"]').val(data.telefono);
+                $('input[name="telefono_emergenciaEditar"]').val(data.telefono_emergencia);
+                $('input[name="direccionEditar"]').val(data.direccion);
+                $('input[name="correoEditar"]').val(data.correo);
+                $('input[name="fecha_cumpleEditar"]').val(data.fecha_cumple);
+                $('input[name="edadEditar"]').val(data.edad);
+                $('input[name="observacionesEditar"]').val(data.observaciones);
+                // Muestra el modal
+                $('#modal-detalles-socio').modal('show');
+            }
+        });
+    });*/
+
+
+    //Boton de editar cliente =================================//
     $('body').on('click', '.boton-editar', function() {
         var id = $(this).data('id');
         //console.log(id);
@@ -100,6 +120,7 @@ $(document).ready(function() {
             }
         });
 
+        //Previsualizacion de imagen al editar
         $('input[name="fotoEditar"]').on('change', function() {
             var input = this;
             if (input.files && input.files[0]) {
@@ -118,7 +139,7 @@ $(document).ready(function() {
 
     });
 
-    //Previsualizacion de imagen
+    //Previsualizacion de imagen al registrar
     $('input[name="foto"]').on('change', function() {
         var input = this;
         if (input.files && input.files[0]) {
@@ -156,6 +177,7 @@ $(document).ready(function() {
             $('#pago-credito').attr('hidden', 'hidden');
         }
     });
+
 
     //Metodos de Pagos
 
@@ -221,6 +243,7 @@ $(document).ready(function() {
         });
     });
 
+    //Envío de información de venta de paquete u actualización de datos del socio
     $('#form-ventaPaquete').on('submit', function(e) {
         e.preventDefault();
         var id = $('input[name="id-cliente"]').val();
@@ -236,6 +259,7 @@ $(document).ready(function() {
             referencia: $('input[name="referencia"]').val() || null,
         }; // Recoge los datos del formulario para la venta de paquete
     
+        //AJAX para enviar dcrear la venta de Paquete
         $.ajax({
             url: 'ventas-paquetes', 
             method: 'POST', // o 'PUT' si estás actualizando
@@ -252,6 +276,8 @@ $(document).ready(function() {
                     //Si el campo adeudo contiene algun dato, se le debe imprimir un boton de eliminar adeudo que haga un SET al campo adeudo como NULL, este boton requiere una funcion nivea en el controlador de socios
 
                 } //Recoge los datos del formulario para el socio
+
+                //AJAX para enviar la actualización de datos del socio
                 $.ajax({
                     url: 'clienteVenta/' + id, // Usa el atributo action del formulario como la URL
                     method: 'PUT', 
@@ -288,14 +314,14 @@ $(document).ready(function() {
     });
 
 
-
-        $(function () {
-        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-            event.preventDefault();
-            $(this).ekkoLightbox({
-            alwaysShowClose: true
-            });
+    //Inicializacion y funcion para visualizar la imagen del socio en MODAL
+    $(function () {
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox({
+        alwaysShowClose: true
         });
-        })
+    });
+    })
 
 });

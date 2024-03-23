@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\VentasPaquetes;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Facades\DataTables;
 
 class VentasPaquetesController extends Controller
 {
@@ -23,7 +26,7 @@ class VentasPaquetesController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -31,7 +34,21 @@ class VentasPaquetesController extends Controller
      */
     public function store(Request $request)
     { 
-        //
+        $request->validate([
+            'tipo_paquete' => 'required',
+            'costo' => 'required',
+            'metodo_pago' =>'required',
+            'duracion' =>'required',
+            'fecha_inicio' =>'required',
+            'nombre_administrador' =>'required',
+            'id_cliente' =>'required'
+        ]);
+
+        $ventaPaquete = new VentasPaquetes($request->all());
+
+        $ventaPaquete->save();
+        
+        return response(null, 204);
     }
 
     /**
@@ -63,8 +80,10 @@ class VentasPaquetesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(VentasPaquetes $ventasPaquetes)
+    public function destroy($id)
     {
-        //
+        $locker = VentasPaquetes::where('id', $id);
+        $locker->delete();
+        return redirect()->route('ventas-paquetes.index')->with('success', 'Paquete eliminado correctamente');
     }
 }

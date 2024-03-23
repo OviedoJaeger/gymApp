@@ -25,38 +25,8 @@
         </div>
         <div class="card-body">
 
-            <table id="tabla-lockers" class="table table-bordered table-striped tabla-datatables">
-                <thead>
-                    <tr>
-                    <th style="width: 10px">#</th>
-                    <th style="width: 120px">Número de Locker</th>
-                    <th>Cliente</th>
-                    <th>Fecha de Inicio</th>
-                    <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
+            {!! $dataTable->table()!!}
 
-                        @php
-                        $counter = 1;
-                        @endphp
-
-                        @foreach ($lockers as $lockers)
-                            <tr>
-                                <td>{{$counter++}}</td>
-                                <td><strong>{{$lockers->numero}}</strong></td>
-                                <td>{{$lockers->cliente}}</td>
-                                <td>{{$lockers->created_at}}</td>
-                                <td>
-                                    <form id="form-eliminarPaquete" action="{{route('lockers.destroy', $lockers->id)}}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger btn-sm eliminar-boton" type="submit">Eliminar</button>
-                                    </form>
-                            </tr>
-                        @endforeach
-                </tbody>
-            </table>
         </div>
 
         <!-- Modal -->
@@ -104,12 +74,21 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+
 @stop
 
 @section('js')
     <script src="{{asset('js/ini_datatable.js')}}"></script>
+    <script src="{{asset('js/suscripciones/lockers.js')}}"></script>
     <script src="{{asset('js/general.js')}}"></script>
+
+    <script> var destroyUrlBase = "{{ url('lockers/') }}";
+        var lockersIndexUrl = "{{ route('lockers.index') }}";
+        var csrfToken = "{{ csrf_token() }}";
+    </script>
+
+
 
         <script>
         @if(session('success'))

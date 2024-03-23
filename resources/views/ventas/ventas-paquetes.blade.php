@@ -2,7 +2,9 @@
 
 @section('title', 'Gym')
 
-@section('plugins.Datatables', true)
+@section('plugins.Datatables', true)}
+
+@section('plugins.Sweetalert2', true)
 
 @section('content_header')
     <h1>VENTAS DE PAQUETES</h1>
@@ -39,5 +41,31 @@
     <script> var destroyUrlBase = "{{ url('ventas-paquetes/') }}";
         var VentaPaquetesIndexUrl = "{{ route('ventas-paquetes.index') }}";
         var csrfToken = "{{ csrf_token() }}";
+    </script>
+
+    <script>
+        @if(session('success'))
+            Swal.fire({
+                title: '¡Éxito!',
+                text: "{{ session('success') }}",
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        @endif
+
+        @if ($errors->any())
+        let contentHtml = '<ul>';
+        @foreach ($errors->all() as $error)
+                contentHtml += '<li>{{ $error }}</li>';
+            @endforeach
+            contentHtml += '</ul>';
+
+            Swal.fire({
+                title: '¡Error!',
+                html: contentHtml,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            @endif
     </script>
 @stop
